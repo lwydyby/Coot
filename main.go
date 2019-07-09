@@ -5,4 +5,5 @@ import "fmt"
 // 代码测试 1
 func main() {
 	fmt.Print("test")
+	fmt.Print("test2")
 }
