@@ -11,7 +11,7 @@ func Html(c *gin.Context) {
 	})
 }
 
-func GetData(c *gin.Context) {
+func Get(c *gin.Context) {
 	data := map[string]interface{}{
 		"k": "测试",
 	}

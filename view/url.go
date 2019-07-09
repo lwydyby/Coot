@@ -12,7 +12,7 @@ func LoadUrl(r *gin.Engine) {
 	// 仪表盘
 	r.GET("/", dashboard.Html)
 	r.GET("/dashboard", dashboard.Html)
-	r.GET("/dashboard/get/data", dashboard.GetData)
+	r.GET("/dashboard/get/data", dashboard.Get)
 
 	// 任务
 	r.GET("/task", task.Html)
