@@ -3,29 +3,39 @@ package job
 import (
 	"github.com/domgoer/gotask"
 	"time"
-	"fmt"
 	"strconv"
 	"Coot/error"
+	"Coot/core/exec"
+	"fmt"
 )
 
 type Task struct {
 	/*
+		id         数据库ID
 		taskId     任务ID  添加的时候为空
-		ScriptType 脚本类型 shell 、python
-		ScriptPath 脚本路径 应该是当前程序下的 script 目录
 		TimeType   执行类型 1 秒执行，2 分钟执行，3 小时执行 ，4 每天指定时间执行，5 每月指定天和时间执行，6 年执行
 		Time   	   周期时间
 	*/
-	TaskId     string
-	ScriptType string
-	ScriptPath string
-	TimeType   int
-	Time       string
+	Id       int
+	TaskId   string
+	TimeType int
+	Time     string
 }
 
 // 执行任务
-func exec(t *Task) {
-	fmt.Print(t)
+func execute(t *Task) {
+
+	var scriptType = "python"
+	var shell string
+
+	if scriptType == "python" {
+		shell = "python /Users/sanjin/work/go/coot/src/Coot/plugs/myscript/test.py"
+	} else if scriptType == "shell" {
+		shell = "sh /Users/sanjin/work/go/coot/src/Coot/plugs/myscript/test.sh"
+	}
+
+	result := exec.Execute(shell)
+	fmt.Println(result)
 }
 
 func mTask(t *Task, typs string) string {
@@ -39,7 +49,7 @@ func mTask(t *Task, typs string) string {
 		error.Check(err, "秒时间格式化失败")
 
 		if typs == "add" {
-			task := gotask.NewTask(time.Second*time.Duration(number), func() { exec(t) })
+			task := gotask.NewTask(time.Second*time.Duration(number), func() { execute(t) })
 			gotask.AddToTaskList(task)
 			taskId = task.ID()
 		} else if typs == "update" {
@@ -51,7 +61,7 @@ func mTask(t *Task, typs string) string {
 		error.Check(err, "分钟时间格式化失败")
 
 		if typs == "add" {
-			task := gotask.NewTask(time.Minute*time.Duration(number), func() { exec(t) })
+			task := gotask.NewTask(time.Minute*time.Duration(number), func() { execute(t) })
 			gotask.AddToTaskList(task)
 			taskId = task.ID()
 		} else if typs == "update" {
@@ -63,7 +73,7 @@ func mTask(t *Task, typs string) string {
 		error.Check(err, "小时时间格式化失败")
 
 		if typs == "add" {
-			task := gotask.NewTask(time.Hour*time.Duration(number), func() { exec(t) })
+			task := gotask.NewTask(time.Hour*time.Duration(number), func() { execute(t) })
 			gotask.AddToTaskList(task)
 			taskId = task.ID()
 		} else if typs == "update" {
@@ -71,18 +81,18 @@ func mTask(t *Task, typs string) string {
 		}
 	case 4:
 		// 天执行
-		task, err := gotask.NewDayTask(t.Time, func() { exec(t) })
+		task, err := gotask.NewDayTask(t.Time, func() { execute(t) })
 		error.Check(err, "")
 		gotask.AddToTaskList(task)
 		taskId = task.ID()
 	case 5:
 		// 月执行
-		task, err := gotask.NewMonthTask(t.Time, func() { exec(t) })
+		task, err := gotask.NewMonthTask(t.Time, func() { execute(t) })
 		error.Check(err, "")
 		taskId = task.ID()
 	case 6:
 		// 年执行
-		task := gotask.NewTask(time.Second*2, func() { exec(t) })
+		task := gotask.NewTask(time.Second*2, func() { execute(t) })
 		gotask.AddToTaskList(task)
 		taskId = task.ID()
 	}

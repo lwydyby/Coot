@@ -1,5 +1,5 @@
-hash: ce26dd789f28bcff0bf80c8acf3e04171d7b4592453f4ffc3d3c6ebd3535d76e
-updated: 2019-07-10T14:54:33.570077+08:00
+hash: 61b79667148059b0426c649547c45310c173e55b23f7fcd627cc807f01bd745f
+updated: 2019-07-10T15:46:06.637231+08:00
 imports:
 - name: github.com/domgoer/gotask
   version: 64ba404b715205fccced8930040bb84967e3086b
@@ -19,6 +19,8 @@ imports:
   version: 27518f6661eba504be5a7a9a9f6d9460d892ade3
 - name: github.com/mattn/go-isatty
   version: da60ac76bf7019a8b005f8dd1ad9d1a0e6434155
+- name: github.com/mattn/go-sqlite3
+  version: c7c4067b79cc51e6dfdcef5c702e74b1e0fa7c75
 - name: github.com/modern-go/concurrent
   version: bacd9c7ef1dd9b15be4a9909b8ac7a4e313eec94
 - name: github.com/modern-go/reflect2
