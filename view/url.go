@@ -16,6 +16,8 @@ func LoadUrl(r *gin.Engine) {
 
 	// 任务
 	r.GET("/task", task.Html)
+	r.GET("/task/start", task.Start)
+	r.GET("/task/stop", task.Stop)
 
 	// 插件
 	r.GET("/plug", plug.Html)
