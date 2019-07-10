@@ -4897,7 +4897,7 @@ File: Menu
 
 .logo {
   float: left;
-  color: #ffffff !important;
+  color: #009aff !important;
   font-size: 20px;
   font-weight: 600;
   letter-spacing: 1px;
@@ -4918,7 +4918,7 @@ File: Menu
   min-height: 60px;
   box-shadow: 0 0px 24px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02); }
   #topnav .topbar-main {
-    background-color: #2b3d51; }
+    background-color: #fff; }
     #topnav .topbar-main .badge {
       position: absolute;
       top: 12px;
@@ -4976,7 +4976,7 @@ File: Menu
       -webkit-transform: rotate(-45deg);
       transform: rotate(-45deg); }
   #topnav .navigation-menu > li.active > a {
-    color: #a1ccfd; }
+    color: #009aff; }
   #topnav .navigation-menu > li.active li.active > a {
     color: #64b0f2; }
   #topnav .navigation-menu > li.active li.active li.active > a {
@@ -4991,7 +4991,7 @@ File: Menu
     position: relative; }
   #topnav .navigation-menu > li > a {
     display: block;
-    color: #e8e8e8;
+    color: #555;
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
     line-height: 20px;
@@ -5323,7 +5323,7 @@ File: Menu
     font-size: 22px;
     padding: 0 12px;
     vertical-align: middle;
-    color: rgba(255, 255, 255, 0.8); }
+    color: #555; }
   .notification-list .noti-icon-badge {
     height: 10px;
     width: 10px;
