@@ -76,7 +76,18 @@
                         _h += '<tr>';
                         _h += '    <th><span class="label label-primary">' + data[i].task_name + '</span></th>';
                         _h += '    <td class="cjs">' + data[i].task_explain + '</td>';
-                        _h += '    <td><span class="label label-info">每天</span></td>';
+
+                        if (data[i].task_time_type == "1") {
+                            _h += '    <td><span class="label label-info">' + data[i].task_time + '秒</span></td>';
+                        } else if (data[i].task_time_type == "2") {
+                            _h += '    <td><span class="label label-info">' + data[i].task_time + '分</span></td>';
+                        } else if (data[i].task_time_type == "3") {
+                            _h += '    <td><span class="label label-info">' + data[i].task_time + '时</span></td>';
+                        } else if (data[i].task_time_type == "4") {
+                            _h += '    <td><span class="label label-info">每天-' + data[i].task_time + '</span></td>';
+                        } else if (data[i].task_time_type == "5") {
+                            _h += '    <td><span class="label label-info">每月-' + data[i].task_time + '</span></td>';
+                        }
 
                         if (data[i].last_exec_time != "") {
                             _h += '    <td>' + data[i].last_exec_time + '</td>';
