@@ -16,6 +16,8 @@ func LoadUrl(r *gin.Engine) {
 
 	// 任务
 	r.GET("/task", task.Html)
+	r.GET("/task/add", task.HtmlAdd)
+	r.GET("/get/task/list", task.GetTaskList)
 
 	// 定时任务测试 + 执行脚本测试
 	r.GET("/task/start", task.Start)
@@ -27,7 +29,7 @@ func LoadUrl(r *gin.Engine) {
 	r.GET("/task/query", task.Query)
 
 	// 插件
-	r.GET("/plug", plug.Html)
+	r.GET("/plugs", plug.Html)
 
 	// 设置
 	r.GET("/setting", setting.Html)

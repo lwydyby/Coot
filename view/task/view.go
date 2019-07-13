@@ -9,11 +9,21 @@ import (
 	"Coot/error"
 )
 
-// 返回 Task 页面
+// Task List 页面
 func Html(c *gin.Context) {
-	c.HTML(http.StatusOK, "task.html", gin.H{
-		"title": "Main website",
-	})
+	c.HTML(http.StatusOK, "task.html", gin.H{})
+}
+
+// 查询任务列表
+func GetTaskList(c *gin.Context) {
+	sql := `select * from coot_tasks;`
+	result := dbUtil.Query(sql)
+	c.JSON(http.StatusOK, error.ErrSuccess(result))
+}
+
+// Task Add 页面
+func HtmlAdd(c *gin.Context) {
+	c.HTML(http.StatusOK, "taskAdd.html", gin.H{})
 }
 
 // 启动任务

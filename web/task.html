@@ -30,9 +30,9 @@
     <!-- Page-Title -->
     <div class="col-sm-12">
         <div class="btn-group pull-right m-t-15">
-            <button type="button" class="btn btn-custom">创建任务 <span class="m-l-5"><i
+            <a type="button" class="btn btn-custom" href="/task/add">创建任务 <span class="m-l-5"><i
                     class="zmdi zmdi-alarm-plus"></i></span>
-            </button>
+            </a>
         </div>
         <h4 class="page-title">任务中心</h4>
     </div>
@@ -50,95 +50,7 @@
                     <th width="6%">操作</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <th><span class="label label-primary">上下班提醒</span></th>
-                    <td class="cjs">提醒上班和下班的通知</td>
-                    <td><span class="label label-info">每天</span></td>
-                    <td>2019-07-01 10:00</td>
-                    <td><span class="label label-success">运行</span></td>
-                    <td>
-                        <i class="fa fa-play start_end"></i>
-                        <i class="fa fa-trash-o del"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th><span class="label label-primary">JD签到</span></th>
-                    <td class="cjs">每天早上9:30自动打开京东签到获得京豆</td>
-                    <td><span class="label label-info">每天</span></td>
-                    <td>2019-07-01 10:00</td>
-                    <td><span class="label label-danger">停止</span></td>
-                    <td>
-                        <i class="fa fa-stop start_end"></i>
-                        <i class="fa fa-trash-o del"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th><span class="label label-primary">上下班提醒</span></th>
-                    <td class="cjs">提醒上班和下班的通知</td>
-                    <td><span class="label label-info">每天</span></td>
-                    <td>2019-07-01 10:00</td>
-                    <td><span class="label label-success">运行</span></td>
-                    <td>
-                        <i class="fa fa-play start_end"></i>
-                        <i class="fa fa-trash-o del"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th><span class="label label-primary">JD签到</span></th>
-                    <td class="cjs">每天早上9:30自动打开京东签到获得京豆</td>
-                    <td><span class="label label-info">每天</span></td>
-                    <td>2019-07-01 10:00</td>
-                    <td><span class="label label-danger">停止</span></td>
-                    <td>
-                        <i class="fa fa-stop start_end"></i>
-                        <i class="fa fa-trash-o del"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th><span class="label label-primary">上下班提醒</span></th>
-                    <td class="cjs">提醒上班和下班的通知</td>
-                    <td><span class="label label-info">每天</span></td>
-                    <td>2019-07-01 10:00</td>
-                    <td><span class="label label-success">运行</span></td>
-                    <td>
-                        <i class="fa fa-play start_end"></i>
-                        <i class="fa fa-trash-o del"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th><span class="label label-primary">JD签到</span></th>
-                    <td class="cjs">每天早上9:30自动打开京东签到获得京豆</td>
-                    <td><span class="label label-info">每天</span></td>
-                    <td>2019-07-01 10:00</td>
-                    <td><span class="label label-danger">停止</span></td>
-                    <td>
-                        <i class="fa fa-stop start_end"></i>
-                        <i class="fa fa-trash-o del"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th><span class="label label-primary">上下班提醒</span></th>
-                    <td class="cjs">提醒上班和下班的通知</td>
-                    <td><span class="label label-info">每天</span></td>
-                    <td>2019-07-01 10:00</td>
-                    <td><span class="label label-success">运行</span></td>
-                    <td>
-                        <i class="fa fa-play start_end"></i>
-                        <i class="fa fa-trash-o del"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th><span class="label label-primary">JD签到</span></th>
-                    <td class="cjs">每天早上9:30自动打开京东签到获得京豆</td>
-                    <td><span class="label label-info">每天</span></td>
-                    <td>2019-07-01 10:00</td>
-                    <td><span class="label label-danger">停止</span></td>
-                    <td>
-                        <i class="fa fa-stop start_end"></i>
-                        <i class="fa fa-trash-o del"></i>
-                    </td>
-                </tr>
+                <tbody id="tableList">
                 <tr>
                     <th><span class="label label-primary">上下班提醒</span></th>
                     <td class="cjs">提醒上班和下班的通知</td>
@@ -167,3 +79,40 @@
     </div>
 </div>
 {{template "footer" }}
+<script>
+    function init() {
+        $.ajax({
+            type: "GET",
+            url: "/get/task/list",
+            dataType: "json",
+            success: function (e) {
+                if (e.code == 200) {
+                    var data = e.data;
+                    var _h = '';
+
+                    for (var i = 0; i < data.length; i++) {
+                        _h += '<tr>';
+                        _h += '    <th><span class="label label-primary">' + data[i].task_name + '</span></th>';
+                        _h += '    <td class="cjs">' + data[i].task_explain + '</td>';
+                        _h += '    <td><span class="label label-info">每天</span></td>';
+                        _h += '    <td>2019-07-01 10:00</td>';
+                        _h += '    <td><span class="label label-success">运行</span></td>';
+                        _h += '    <td>';
+                        _h += '        <i class="fa fa-play start_end"></i>';
+                        _h += '        <i class="fa fa-trash-o del"></i>';
+                        _h += '    </td>';
+                        _h += '</tr>';
+                    }
+
+                    $("#tableList").html(_h);
+                } else {
+
+                }
+            },
+            error: function (e) {
+            }
+        });
+    }
+
+    init();
+</script>
