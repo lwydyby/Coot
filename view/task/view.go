@@ -4,9 +4,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"Coot/core/job"
-	"fmt"
 	"Coot/core/dbUtil"
 	"Coot/error"
+	"Coot/utils/file"
+	"Coot/utils/md5"
+	"time"
+	"github.com/satori/go.uuid"
 )
 
 // Task List 页面
@@ -16,7 +19,7 @@ func Html(c *gin.Context) {
 
 // 查询任务列表
 func GetTaskList(c *gin.Context) {
-	sql := `select * from coot_tasks;`
+	sql := `select id,task_name,task_explain,task_id,task_time_type,task_time,last_exec_time,script_type,script_path,create_time from coot_tasks ORDER BY id desc;`
 	result := dbUtil.Query(sql)
 	c.JSON(http.StatusOK, error.ErrSuccess(result))
 }
@@ -26,41 +29,34 @@ func HtmlAdd(c *gin.Context) {
 	c.HTML(http.StatusOK, "taskAdd.html", gin.H{})
 }
 
-// 启动任务
-func Start(c *gin.Context) {
-	data := map[string]interface{}{
-		"k": "测试",
+// 添加任务
+func PostTaskAdd(c *gin.Context) {
+	is_plug_script := c.PostForm("is_plug_script")
+	taskName := c.PostForm("taskName")
+	taskExplain := c.PostForm("taskExplain")
+	taskTimeType := c.PostForm("taskTimeType")
+	taskTime := c.PostForm("taskTime")
+	taskLanuage := c.PostForm("taskLanuage")
+	code := c.PostForm("code")
+
+	// 获取时间戳，生成MD5
+	currTimeStr := time.Now().Format("2006-01-02 15:04")
+	uid := uuid.NewV4()
+	fileName := md5.Md5(currTimeStr + uid.String())
+
+	var fileType = ""
+
+	if taskLanuage == "Python" {
+		fileType = "py"
+	} else if taskLanuage == "Shell" {
+		fileType = "sh"
+	} else {
+		c.JSON(http.StatusOK, error.ErrFailFileType())
 	}
 
-	taskId := job.AddJob(&job.Task{
-		0,
-		"",
-		1,
-		"3",
-	})
-
-	fmt.Println(taskId)
-
-	c.JSON(http.StatusOK, data)
-}
-
-// 关闭任务
-func Stop(c *gin.Context) {
-	data := map[string]interface{}{
-		"k": "测试",
-	}
-
-	taskId := c.Query("taskId")
-	job.StopJob(taskId)
-
-	c.JSON(http.StatusOK, data)
-}
-
-// 插入数据
-func Insert(c *gin.Context) {
-	data := map[string]interface{}{
-		"k": "测试",
-	}
+	// 写入文件
+	filePath := "./scripts/" + fileName + "." + fileType
+	file.Output(code, filePath)
 
 	sql := `
 		INSERT INTO coot_tasks (
@@ -79,46 +75,89 @@ func Insert(c *gin.Context) {
 		VALUES
 			(?,?,?,?,?,?,?,?,?,?,?);
 	`
-	dbUtil.Insert(sql, "插入任务测试", "测试说明", "", 1, "2", "", "1", "shell", "/plugs/myscript/test.sh", "1", "2019-07-10 16:12")
 
-	c.JSON(http.StatusOK, data)
+	dbUtil.Insert(sql, taskName, taskExplain, "", taskTimeType, taskTime, "", is_plug_script, taskLanuage, filePath, "1", currTimeStr)
+
+	c.JSON(http.StatusOK, error.ErrSuccessNull())
 }
 
-// 更新数据
-func Update(c *gin.Context) {
-	data := map[string]interface{}{
-		"k": "测试",
-	}
+// 删除任务
+func PostTaskDel(c *gin.Context) {
+	id := c.PostForm("id")
 
+	sql := `select id,task_name,task_explain,task_id,task_time_type,task_time,last_exec_time,script_type,script_path,create_time from coot_tasks WHERE id = ?;`
+	result := dbUtil.Query(sql, id)
+
+	taskId := result[0]["task_id"]
+
+	job.StopJob(taskId.(string))
+
+	sqlDel := `delete from coot_tasks where id=?;`
+	dbUtil.Delete(sqlDel, id)
+
+	c.JSON(http.StatusOK, error.ErrSuccessNull())
+}
+
+func updateTaskId(task_id string, id string) {
 	sql := `
 		UPDATE coot_tasks
-		SET task_name = ?
+		SET task_id = ?
 		WHERE
 			id = ?;
-	`
-	dbUtil.Update(sql, "任务更新测试", 1)
-
-	c.JSON(http.StatusOK, data)
+		`
+	dbUtil.Update(sql, task_id, id)
 }
 
-// 删除数据
-func Delete(c *gin.Context) {
-	data := map[string]interface{}{
-		"k": "测试",
-	}
-
-	sql := `delete from coot_tasks where id=?;`
-	dbUtil.Delete(sql, 2)
-
-	c.JSON(http.StatusOK, data)
+func UpdateTaskAll() {
+	sql := `
+		UPDATE coot_tasks
+		SET task_id = "";
+		`
+	dbUtil.Update(sql)
 }
 
-// 查询数据
-func Query(c *gin.Context) {
-	sql := `select * from coot_tasks;`
-	result := dbUtil.Query(sql)
-	//sql := `select * from coot_tasks where id=?;`
-	//result := dbUtil.Query(sql, 1)
+// 启动任务
+func TaskStart(c *gin.Context) {
+	id := c.PostForm("id")
 
-	c.JSON(http.StatusOK, error.ErrSuccess(result))
+	sql := `select id,task_name,task_explain,task_id,task_time_type,task_time,last_exec_time,script_type,script_path,create_time from coot_tasks WHERE id = ?;`
+	result := dbUtil.Query(sql, id)
+
+	taskTimeType := result[0]["task_time_type"]
+	taskTime := result[0]["task_time"]
+	scriptType := result[0]["script_type"]
+	scriptPath := result[0]["script_path"]
+
+	// 启动任务
+	taskId := job.AddJob(&job.Task{
+		id,
+		"",
+		taskTimeType.(string),
+		taskTime.(string),
+		scriptType.(string),
+		scriptPath.(string),
+	})
+
+	// 更新数据库
+	updateTaskId(taskId, id)
+
+	c.JSON(http.StatusOK, error.ErrSuccessNull())
+}
+
+// 关闭任务
+func TaskStop(c *gin.Context) {
+	id := c.PostForm("id")
+
+	sql := `select id,task_name,task_explain,task_id,task_time_type,task_time,last_exec_time,script_type,script_path,create_time from coot_tasks WHERE id = ?;`
+	result := dbUtil.Query(sql, id)
+
+	taskId := result[0]["task_id"]
+
+	// 停止任务
+	job.StopJob(taskId.(string))
+
+	// 更新数据库
+	updateTaskId("", id)
+
+	c.JSON(http.StatusOK, error.ErrSuccessNull())
 }

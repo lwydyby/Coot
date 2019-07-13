@@ -40,7 +40,7 @@ func Insert(sql string, args ...interface{}) int64 {
 		VALUES
 			(?,?,?,?,?,?,?,?,?,?,?);
 		`
-		dbUtil.Insert(sql, "插入任务测试", "测试说明", "", 1, "2", "", "1", "shell", "/plugs/myscript/test.sh", "1", "2019-07-10 16:12")
+		dbUtil.Insert(sql, "插入任务测试", "测试说明", "", 1, "2", "", "1", "shell", "/scripts/myscript/test.sh", "1", "2019-07-10 16:12")
 	*/
 	db := conn()
 	stmt, _ := db.Prepare(sql)
@@ -81,6 +81,7 @@ func Update(sql string, args ...interface{}) int64 {
 	stmt, _ := db.Prepare(sql)
 
 	res, err := stmt.Exec(args...)
+
 	error.Check(err, "更新数据失败")
 	defer stmt.Close()
 

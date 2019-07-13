@@ -19,3 +19,17 @@ func ErrSuccess(data []map[string]interface{}) map[string]interface{} {
 		"data": data,
 	}
 }
+
+func ErrSuccessNull() map[string]interface{} {
+	return gin.H{
+		"code": 200,
+		"msg":  "success",
+	}
+}
+
+func ErrFailFileType() map[string]interface{} {
+	return gin.H{
+		"code": 101,
+		"msg":  "异常文件格式",
+	}
+}

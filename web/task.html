@@ -25,6 +25,10 @@
     .cjs {
         color: #525d6d;
     }
+
+    .hover {
+        cursor: pointer;
+    }
 </style>
 <div class="row">
     <!-- Page-Title -->
@@ -51,28 +55,6 @@
                 </tr>
                 </thead>
                 <tbody id="tableList">
-                <tr>
-                    <th><span class="label label-primary">上下班提醒</span></th>
-                    <td class="cjs">提醒上班和下班的通知</td>
-                    <td><span class="label label-info">每天</span></td>
-                    <td>2019-07-01 10:00</td>
-                    <td><span class="label label-success">运行</span></td>
-                    <td>
-                        <i class="fa fa-play start_end"></i>
-                        <i class="fa fa-trash-o del"></i>
-                    </td>
-                </tr>
-                <tr>
-                    <th><span class="label label-primary">JD签到</span></th>
-                    <td class="cjs">每天早上9:30自动打开京东签到获得京豆</td>
-                    <td><span class="label label-info">每天</span></td>
-                    <td>2019-07-01 10:00</td>
-                    <td><span class="label label-danger">停止</span></td>
-                    <td>
-                        <i class="fa fa-stop start_end"></i>
-                        <i class="fa fa-trash-o del"></i>
-                    </td>
-                </tr>
                 </tbody>
             </table>
         </div>
@@ -95,11 +77,25 @@
                         _h += '    <th><span class="label label-primary">' + data[i].task_name + '</span></th>';
                         _h += '    <td class="cjs">' + data[i].task_explain + '</td>';
                         _h += '    <td><span class="label label-info">每天</span></td>';
-                        _h += '    <td>2019-07-01 10:00</td>';
-                        _h += '    <td><span class="label label-success">运行</span></td>';
-                        _h += '    <td>';
-                        _h += '        <i class="fa fa-play start_end"></i>';
-                        _h += '        <i class="fa fa-trash-o del"></i>';
+
+                        if (data[i].last_exec_time != "") {
+                            _h += '    <td>' + data[i].last_exec_time + '</td>';
+                        } else {
+                            _h += '    <td>暂未执行</td>';
+                        }
+
+
+                        if (data[i].task_id != "") {
+                            _h += '    <td><span class="label label-success">运行</span></td>';
+                            _h += '    <td>';
+                            _h += '        <i class="fa fa-stop start_end hover" onclick="stopTask(' + data[i].id + ')"></i>';
+                        } else {
+                            _h += '    <td><span class="label label-danger">停止</span></td>';
+                            _h += '    <td>';
+                            _h += '        <i class="fa fa-play start_end hover" onclick="startTask(' + data[i].id + ')"></i>';
+                        }
+
+                        _h += '        <i class="fa fa-trash-o del hover" onclick="delTask(' + data[i].id + ')"></i>';
                         _h += '    </td>';
                         _h += '</tr>';
                     }
@@ -113,6 +109,71 @@
             }
         });
     }
+
+    function delTask(id) {
+        $.ajax({
+            type: "POST",
+            url: "/post/task/del",
+            dataType: "json",
+            data: {
+                "id": id
+            },
+            success: function (e) {
+                if (e.code == 200) {
+                    window.location.href = "/task";
+                } else {
+                    swal("删除失败", e.msg, 'error');
+                }
+            },
+            error: function (e) {
+                swal("删除失败", "请 Github 提交 Issues", 'error');
+            }
+        });
+    }
+
+    function startTask(id) {
+        $.ajax({
+            type: "POST",
+            url: "/task/start",
+            dataType: "json",
+            data: {
+                "id": id
+            },
+            success: function (e) {
+                if (e.code == 200) {
+                    window.location.href = "/task";
+                } else {
+                    swal("启动失败", e.msg, 'error');
+                }
+            },
+            error: function (e) {
+                swal("启动失败", "请 Github 提交 Issues", 'error');
+            }
+        });
+    }
+
+
+    function stopTask(id) {
+        $.ajax({
+            type: "POST",
+            url: "/task/stop",
+            dataType: "json",
+            data: {
+                "id": id
+            },
+            success: function (e) {
+                if (e.code == 200) {
+                    window.location.href = "/task";
+                } else {
+                    swal("停止失败", e.msg, 'error');
+                }
+            },
+            error: function (e) {
+                swal("停止失败", "请 Github 提交 Issues", 'error');
+            }
+        });
+    }
+
 
     init();
 </script>

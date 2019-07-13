@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"Coot/view"
+	"Coot/view/task"
 )
 
 func main() {
@@ -17,6 +18,8 @@ func main() {
 
 	// 加载路由
 	view.LoadUrl(r)
+
+	task.UpdateTaskAll()
 
 	// 监听并在 0.0.0.0:8080 上启动服务
 	r.Run()

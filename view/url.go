@@ -18,15 +18,10 @@ func LoadUrl(r *gin.Engine) {
 	r.GET("/task", task.Html)
 	r.GET("/task/add", task.HtmlAdd)
 	r.GET("/get/task/list", task.GetTaskList)
-
-	// 定时任务测试 + 执行脚本测试
-	r.GET("/task/start", task.Start)
-	r.GET("/task/stop", task.Stop)
-	// 数据库测试
-	r.GET("/task/insert", task.Insert)
-	r.GET("/task/update", task.Update)
-	r.GET("/task/del", task.Delete)
-	r.GET("/task/query", task.Query)
+	r.POST("/post/task/add", task.PostTaskAdd)
+	r.POST("/post/task/del", task.PostTaskDel)
+	r.POST("/task/start", task.TaskStart)
+	r.POST("/task/stop", task.TaskStop)
 
 	// 插件
 	r.GET("/plugs", plug.Html)
