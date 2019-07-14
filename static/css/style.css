@@ -57,6 +57,14 @@ a:hover {
 abbr[title] {
   border-bottom: 1px dotted; }
 
+
+.logoimg{
+  margin-top: -3px;
+  width: 30px;
+  height: 30px;
+  margin-right: -4px;
+}
+
 b,
 strong {
   font-weight: bold; }
