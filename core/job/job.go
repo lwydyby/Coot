@@ -1,13 +1,14 @@
 package job
 
 import (
-	"github.com/domgoer/gotask"
-	"time"
-	"strconv"
-	"Coot/error"
-	"Coot/core/exec"
-	"fmt"
 	"Coot/core/dbUtil"
+	"Coot/core/exec"
+	"Coot/error"
+	"fmt"
+	"github.com/domgoer/gotask"
+	"github.com/gin-gonic/gin"
+	"strconv"
+	"time"
 )
 
 type Task struct {
@@ -18,6 +19,7 @@ type Task struct {
 		Time   	   周期时间
 	*/
 	Id         string
+	Name       string
 	TaskId     string
 	TimeType   string
 	Time       string
@@ -39,21 +41,23 @@ func updateExecTime(id string) {
 
 // 执行任务
 func execute(t *Task) {
-
 	var id = t.Id
 	var cmd string
-
+	exeResult := "开始执行"
 	if t.ScriptType == "Python" {
 		cmd = "python " + t.ScriptPath
 	} else if t.ScriptType == "Shell" {
 		cmd = "sh " + t.ScriptPath
 	}
-
-	fmt.Println(cmd)
-	result := exec.Execute(cmd)
-	fmt.Println(result)
-
+	fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+"		"+exeResult+" id:"+id+"		任务名称:"+t.Name+"		执行命令:"+cmd)
+	result, err := exec.Execute(cmd)
+	if err != nil {
+		exeResult = "执行失败"
+	} else {
+		exeResult = "执行完成"
+	}
 	updateExecTime(id)
+	fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+"		"+exeResult+" id:"+id+"		任务名称:"+t.Name+"		脚本结果:"+result)
 }
 
 func mTask(t *Task, typs string) string {

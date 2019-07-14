@@ -1,18 +1,18 @@
 package exec
 
 import (
-	"os/exec"
 	"bytes"
-	"Coot/error"
+	"os/exec"
 )
 
-func Execute(shell string) string {
+func Execute(shell string) (string, error) {
 	cmd := exec.Command("/bin/bash", "-c", shell)
 	var out bytes.Buffer
 
 	cmd.Stdout = &out
 	err := cmd.Run()
-	error.Check(err, "执行脚本异常")
-
-	return out.String()
+	if err != nil {
+		return "", err
+	}
+	return out.String(), nil
 }

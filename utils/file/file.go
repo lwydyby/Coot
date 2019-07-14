@@ -1,13 +1,13 @@
 package file
 
 import (
+	"Coot/error"
 	"fmt"
 	"os"
-	"Coot/error"
 )
 
 func Output(result string, path string) {
-	if (path != "") {
+	if path != "" {
 		_, err := os.Stat(path)
 		if err != nil {
 			f_create, err_create := os.Create(path)

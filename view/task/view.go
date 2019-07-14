@@ -1,15 +1,15 @@
 package task
 
 import (
-	"github.com/gin-gonic/gin"
-	"net/http"
-	"Coot/core/job"
 	"Coot/core/dbUtil"
+	"Coot/core/job"
 	"Coot/error"
 	"Coot/utils/file"
 	"Coot/utils/md5"
-	"time"
+	"github.com/gin-gonic/gin"
 	"github.com/satori/go.uuid"
+	"net/http"
+	"time"
 )
 
 // Task List 页面
@@ -122,7 +122,7 @@ func TaskStart(c *gin.Context) {
 
 	sql := `select id,task_name,task_explain,task_id,task_time_type,task_time,last_exec_time,script_type,script_path,create_time from coot_tasks WHERE id = ?;`
 	result := dbUtil.Query(sql, id)
-
+	taskName := result[0]["task_name"]
 	taskTimeType := result[0]["task_time_type"]
 	taskTime := result[0]["task_time"]
 	scriptType := result[0]["script_type"]
@@ -131,6 +131,7 @@ func TaskStart(c *gin.Context) {
 	// 启动任务
 	taskId := job.AddJob(&job.Task{
 		id,
+		taskName.(string),
 		"",
 		taskTimeType.(string),
 		taskTime.(string),
