@@ -1,55 +1,18 @@
 {{template "header"}}
 <style>
-    .switch {
-        appearance: none;
-        -moz-appearance: none;
-        -webkit-appearance: none;
-        position: relative;
-        width: 52px;
-        height: 32px;
-        outline: none !important;
-        border-radius: 16px;
-        border: 1px;
-        box-sizing: border-box;
-        background-color: #DFDFDF;
-        transition: background-color .1s, border .1s;
+    .card-box {
+        padding: 0px;
     }
 
-    .switch::before {
-        content: " ";
-        position: absolute;
-        width: 52px;
-        height: 32px;
-        border: 1px solid #DFDFDF;
-        border-radius: 16px;
-        background-color: #FFFFFF;
-        transition: transform .35s cubic-bezier(0.45, 1, 0.4, 1);
+
+    thead {
+        background: #f5f5f5;
     }
 
-    .switch::after {
-        content: " ";
-        position: absolute;
-        top: 1px;
-        left: 1px;
-        width: 30px;
-        height: 30px;
-        border-radius: 15px;
-        background-color: #FFFFFF;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-        transition: transform .35s cubic-bezier(0.4, 0.4, 0.25, 1.35);
-    }
 
-    .switch:checked {
-        border-color: #1AAD19;
-        background-color: #1AAD19;
-    }
-
-    .switch:checked::before {
-        transform: scale(0);
-    }
-
-    .switch:checked::after {
-        transform: translateX(20px);
+    .btn-sm{
+        padding: 2px 6px;
+        font-size: 12px;
     }
 </style>
 <div class="row">
@@ -59,14 +22,14 @@
             <h4 class="page-title">系统设置</h4>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <div class="card-box table-responsive">
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th width="15%">配置名称</th>
-                        <th>配置介绍</th>
-                        <th>配置时间</th>
+                        <th width="15%">名称</th>
+                        <th>介绍</th>
+                        <th>更新时间</th>
                         <th width="10%;">状态</th>
                         <th width="6%">操作</th>
                     </tr>
@@ -77,19 +40,20 @@
                         <td>{{$e.setting_name}} </td>
                         <td>{{$e.setting_dis}}</td>
                         <td>{{$e.update_time}}</td>
-                        <td><input class="switch" value="1"  type="checkbox"
+                        <td><input type="checkbox" checked data-plugin="switchery" data-color="#039cfd" data-size="small"
                         {{if eq $e.status 1}}
                                    checked
                         {{end}}
-                        /></td>
-                        <td><button type="button" class="btn btn-info  btn-sm" onclick="settingSubFunc('{{$e.id}}')"  data-toggle="modal" data-target="#myModal">配置</button></td>
+                        />
+                        </td>
+                        <td><button type="button" class="btn btn-primary  btn-sm" onclick="settingSubFunc('{{$e.id}}')"  data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i> 配置</button></td>
                     </tr>
                     {{end}}
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <div class="card-box table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -107,12 +71,13 @@
                         <td>{{$e.setting_name}} </td>
                         <td>{{$e.setting_dis}}</td>
                         <td>{{$e.update_time}}</td>
-                        <td><input class="switch" value="1"  type="checkbox"
+                        <td><input type="checkbox" checked data-plugin="switchery" data-color="#039cfd" data-size="small"
                         {{if eq $e.status 1}}
                                    checked
                         {{end}}
-                        /></td>
-                        <td><button type="button" class="btn btn-info  btn-sm"  onclick="settingSubFunc('{{$e.id}}')"   data-toggle="modal" data-target="#settingLoginModal">配置</button></td>
+                        />
+                        </td>
+                        <td><button type="button" class="btn btn-primary btn-sm"  onclick="settingSubFunc('{{$e.id}}')"   data-toggle="modal" data-target="#settingLoginModal"><i class="fa fa-edit"></i> 配置</button></td>
                     </tr>
                     {{end}}
                     </tbody>

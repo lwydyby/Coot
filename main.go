@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+	setting.RunWeb("localhost:9000")
 	args := os.Args
 	if args == nil || len(args) < 2 {
 		setting.Help()
