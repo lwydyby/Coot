@@ -23025,7 +23025,7 @@ div.hopscotch-bubble .hopscotch-bubble-arrow-container.down .hopscotch-bubble-ar
    Accounts pages
 ============= */
 .account-pages {
-  background: #64b0f2;
+  background: #039cfd;
   position: absolute;
   height: 100%;
   width: 100%;
@@ -23039,7 +23039,9 @@ div.hopscotch-bubble .hopscotch-bubble-arrow-container.down .hopscotch-bubble-ar
     background-color: #ffffff;
     padding: 7px;
     border-radius: 8px;
-    margin: 20px 15px; }
+    margin: 20px 15px;
+    border: 1px solid #9c9c9c;
+  }
   .wrapper-page .card-box {
     box-shadow: 0 0px 24px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
     border: 5px solid #64b0f2; }
@@ -23047,7 +23049,7 @@ div.hopscotch-bubble .hopscotch-bubble-arrow-container.down .hopscotch-bubble-ar
     float: none !important;
     line-height: 36px;
     font-size: 24px;
-    color: #1bb99a !important; }
+    color: #4397f1 !important; }
 
 .user-thumb {
   position: relative;

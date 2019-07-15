@@ -31,12 +31,14 @@ func HtmlAdd(c *gin.Context) {
 
 // 添加任务
 func PostTaskAdd(c *gin.Context) {
-	is_plug_script := c.PostForm("is_plug_script")
+	isPlugScript := c.PostForm("is_plug_script")
 	taskName := c.PostForm("taskName")
 	taskExplain := c.PostForm("taskExplain")
 	taskTimeType := c.PostForm("taskTimeType")
 	taskTime := c.PostForm("taskTime")
 	taskLanuage := c.PostForm("taskLanuage")
+	isAlert := c.PostForm("is_mail_alert")
+	mailList := c.PostForm("mail_list")
 	code := c.PostForm("code")
 
 	// 获取时间戳，生成MD5
@@ -70,13 +72,14 @@ func PostTaskAdd(c *gin.Context) {
 			script_type,
 			script_path,
 			alert_type,
+			alert_rec_mail,
 			create_time
 		)
 		VALUES
-			(?,?,?,?,?,?,?,?,?,?,?);
+			(?,?,?,?,?,?,?,?,?,?,?,?);
 	`
 
-	dbUtil.Insert(sql, taskName, taskExplain, "", taskTimeType, taskTime, "", is_plug_script, taskLanuage, filePath, "1", currTimeStr)
+	dbUtil.Insert(sql, taskName, taskExplain, "", taskTimeType, taskTime, "", isPlugScript, taskLanuage, filePath, isAlert, mailList, currTimeStr)
 
 	c.JSON(http.StatusOK, error.ErrSuccessNull())
 }

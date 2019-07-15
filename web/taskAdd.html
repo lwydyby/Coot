@@ -70,7 +70,8 @@
     <!-- Page-Title -->
     <div class="col-sm-12">
         <div class="btn-group pull-right m-t-15">
-            <a type="button" class="btn btn-custom" href="https://github.com/yehuio/Coot/blob/master/README.md" target="_blank">查看帮助 <span class="m-l-5"><i
+            <a type="button" class="btn btn-custom" href="https://github.com/yehuio/Coot/blob/master/README.md"
+               target="_blank">查看帮助 <span class="m-l-5"><i
                     class="zmdi zmdi-help-outline"></i></span>
             </a>
         </div>
@@ -167,6 +168,20 @@
 
                 </div>
                 <hr>
+                <h4 class="header-title m-t-0 m-b-30 title">通知设置</h4>
+                <div class="form-group row">
+                    <label class="col-sm-2"><span class="text-danger">*</span> E-mail：</label>
+                    <div class="col-sm-10">
+                        <input type="checkbox" id="is_switch_mail" data-plugin="switchery"
+                               data-color="#039cfd"
+                               data-size="small"
+                               class="js-check-change">
+                        <div style="margin-top: 10px;display: none;" id="mailinput">
+                            <input type="text" id="mail_list" value="" data-role="tagsinput" placeholder="邮箱可添加多个"/>
+                        </div>
+                    </div>
+                </div>
+                <hr>
                 <h4 class="header-title m-t-0 m-b-30 title">代码脚本</h4>
                 <div class="form-group row">
                     <label class="col-sm-2"><span class="text-danger">*</span> 脚本语言：</label>
@@ -206,6 +221,7 @@
 <script>
 
     var is_plug_script = 0;
+    var is_mail_alert = "";
 
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
@@ -276,6 +292,18 @@
         'default': 'now'
     });
 
+    var changeCheckbox = document.querySelector('.js-check-change');
+
+    changeCheckbox.onchange = function () {
+        if (changeCheckbox.checked) {
+            is_mail_alert = "mail";
+            $("#mailinput").show();
+        } else {
+            is_mail_alert = "";
+            $("#mailinput").hide();
+        }
+    };
+
     function switchTimeType(switchType) {
         if (switchType == 1) {
             $("#zqjg").show();
@@ -293,6 +321,7 @@
     }
 
     function submit() {
+
         var taskName = $("#taskName").val();
         var taskExplain = $("#taskExplain").val();
 
@@ -304,6 +333,8 @@
 
         var taskLanuage = $('input:radio[name="taskLanuage"]:checked').val();
         var code = editor.getValue();
+
+        var mail_list = $('#mail_list').val();
 
         var taskTime = "";
 
@@ -328,11 +359,12 @@
                 "taskTimeType": taskTimeType,
                 "taskTime": taskTime,
                 "taskLanuage": taskLanuage,
+                "is_mail_alert": is_mail_alert,
+                "mail_list": mail_list,
                 "code": code
             },
             success: function (e) {
                 if (e.code == 200) {
-
                     swal("success", "创建成功!", "success");
                     setTimeout(function () {
                         window.location.href = "/task";

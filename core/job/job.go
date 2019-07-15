@@ -51,14 +51,15 @@ func execute(t *Task) {
 	var id = t.Id
 	var cmd string
 
-	exeResult := "开始执行"
-
+	// 拼接命令
 	if t.ScriptType == "Python" {
 		cmd = "python " + t.ScriptPath
 	} else if t.ScriptType == "Shell" {
 		cmd = "sh " + t.ScriptPath
 	}
 
+	// 开始执行任务
+	exeResult := "开始执行"
 	fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+"		"+exeResult+" id:"+id+"		任务名称:"+t.Name+"		执行命令:"+cmd)
 	result, err := exec.Execute(cmd)
 
@@ -68,14 +69,28 @@ func execute(t *Task) {
 		exeResult = "执行完成"
 	}
 
-	updateExecTime(id)
-
 	fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+"		"+exeResult+" id:"+id+"		任务名称:"+t.Name+"		脚本结果:"+result)
 
+	// 判断是否开启邮箱通知
 	if t.AlertType == "mail" {
-		rec_list := strings.Split(t.AlertRecMail, ",")
-		send.SendMail(rec_list, "Coot["+t.Name+"]提醒你", result)
+		sql := `select status from coot_setting where type="mail";`
+		isAlertStatus := dbUtil.Query(sql)
+
+		status := strconv.FormatInt(isAlertStatus[0]["status"].(int64), 10)
+
+		// 判断总开关是否开启
+		if status == "1" {
+			r := strings.Split(result, "&&")
+
+			if r[0] == "0" {
+				recList := strings.Split(t.AlertRecMail, ",")
+				send.SendMail(recList, "Coot["+t.Name+"]提醒你", result)
+			}
+		}
 	}
+
+	// 更新任务执行时间
+	updateExecTime(id)
 }
 
 func mTask(t *Task, typs string) string {

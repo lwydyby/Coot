@@ -5,12 +5,14 @@ import (
 	"Coot/view/setting"
 	"Coot/view/task"
 	"github.com/gin-gonic/gin"
+	"Coot/view/dashboard"
 )
 
 func LoadUrl(r *gin.Engine) {
 	// 仪表盘
-	r.GET("/", task.Html)
-	//r.GET("/dashboard", dashboard.Html)
+	r.GET("/", dashboard.Html)
+	//r.GET("/login", login.Html)
+	r.GET("/dashboard", dashboard.Html)
 	//r.GET("/dashboard/get/data", dashboard.Get)
 
 	// 任务
