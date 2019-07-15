@@ -1,4 +1,57 @@
 {{template "header"}}
+<style>
+    .switch {
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        position: relative;
+        width: 52px;
+        height: 32px;
+        outline: none !important;
+        border-radius: 16px;
+        border: 1px;
+        box-sizing: border-box;
+        background-color: #DFDFDF;
+        transition: background-color .1s, border .1s;
+    }
+
+    .switch::before {
+        content: " ";
+        position: absolute;
+        width: 52px;
+        height: 32px;
+        border: 1px solid #DFDFDF;
+        border-radius: 16px;
+        background-color: #FFFFFF;
+        transition: transform .35s cubic-bezier(0.45, 1, 0.4, 1);
+    }
+
+    .switch::after {
+        content: " ";
+        position: absolute;
+        top: 1px;
+        left: 1px;
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+        background-color: #FFFFFF;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        transition: transform .35s cubic-bezier(0.4, 0.4, 0.25, 1.35);
+    }
+
+    .switch:checked {
+        border-color: #1AAD19;
+        background-color: #1AAD19;
+    }
+
+    .switch:checked::before {
+        transform: scale(0);
+    }
+
+    .switch:checked::after {
+        transform: translateX(20px);
+    }
+</style>
 <div class="row">
     <!-- Page-Title -->
     <div class="row">
@@ -8,10 +61,92 @@
 
         <div class="col-sm-12">
             <div class="card-box table-responsive">
-                adss
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th width="15%">配置名称</th>
+                        <th>配置介绍</th>
+                        <th>配置状态</th>
+                        <th width="10%;">状态</th>
+                        <th width="6%">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableList">
+                    {{range $i, $e := .settingList}}
+                    <tr>
+                        <td>email通知 </td>
+                        <td>配置smtp发送邮件</td>
+                        <td>{{$e.type}}</td>
+                        <td><input class="switch" value="1"  type="checkbox"
+                        {{if eq $e.status 1}}
+                        checked
+                        {{end}}
+                        /></td>
+                        <td><button type="button" class="btn btn-info  btn-sm"  data-toggle="modal" data-target="#myModal">配置</button></td>
+                    </tr>
+                    {{end}}
+
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
+</div>
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">邮件提醒配置</h4>
+            </div>
+            <form id="addSubmit">
+            <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">email</label>
+                        <input type="email" class="form-control" id="" name="email" placeholder="发件人email">
+                    </div>
+                <div class="form-group">
+                    <label for="">pass</label>
+                    <input type="text" class="form-control" id="" name="pass" placeholder="发件人的邮箱配置密码">
+                </div>
+                <div class="form-group">
+                    <label for="">host</label>
+                    <input type="text" class="form-control" id="" name="host" placeholder="例:smtp.126.com">
+                </div>
+                <div class="form-group">
+                    <label for="">port</label>
+                    <input type="text" class="form-control" id="" name="port" placeholder="例:465">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+            </form>
+        </div>
     </div>
 </div>
 {{template "footer" }}
+<script>
+
+
+
+    $('#addSubmit').on('submit', function(){
+        registPost()
+        event.preventDefault() //阻止form表单默认提交
+    })
+    function registPost () {
+        $.ajax({
+            type: "post",
+            url: "/post/setting/add",
+            data: $('#addSubmit').serialize(),
+        }).success(function(message) {
+            $('#myModal').modal('hide')
+            console.log(message)
+        }).fail(function(err){
+            console.log(err)
+        })
+    }
+</script>

@@ -1,9 +1,10 @@
 package view
 
 import (
-	"github.com/gin-gonic/gin"
-	"Coot/view/task"
 	"Coot/view/plug"
+	"Coot/view/setting"
+	"Coot/view/task"
+	"github.com/gin-gonic/gin"
 )
 
 func LoadUrl(r *gin.Engine) {
@@ -25,5 +26,6 @@ func LoadUrl(r *gin.Engine) {
 	r.GET("/plugs", plug.Html)
 
 	// 设置
-	//r.GET("/setting", setting.Html)
+	r.GET("/setting", setting.Html)
+	r.POST("/post/setting/add", setting.AddAlertInfo)
 }
