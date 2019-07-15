@@ -59,14 +59,44 @@
             <h4 class="page-title">系统设置</h4>
         </div>
 
-        <div class="col-sm-12">
+        <div class="col-sm-6">
             <div class="card-box table-responsive">
                 <table class="table table-hover">
                     <thead>
                     <tr>
                         <th width="15%">配置名称</th>
                         <th>配置介绍</th>
-                        <th>配置状态</th>
+                        <th>配置时间</th>
+                        <th width="10%;">状态</th>
+                        <th width="6%">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tableList">
+                    {{range $i, $e := .subscribeList}}
+                    <tr>
+                        <td>{{$e.setting_name}} </td>
+                        <td>{{$e.setting_dis}}</td>
+                        <td>{{$e.update_time}}</td>
+                        <td><input class="switch" value="1"  type="checkbox"
+                        {{if eq $e.status 1}}
+                                   checked
+                        {{end}}
+                        /></td>
+                        <td><button type="button" class="btn btn-info  btn-sm" onclick="settingSubFunc('{{$e.id}}')"  data-toggle="modal" data-target="#myModal">配置</button></td>
+                    </tr>
+                    {{end}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card-box table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th width="15%">配置名称</th>
+                        <th>配置介绍</th>
+                        <th>配置时间</th>
                         <th width="10%;">状态</th>
                         <th width="6%">操作</th>
                     </tr>
@@ -74,18 +104,17 @@
                     <tbody id="tableList">
                     {{range $i, $e := .settingList}}
                     <tr>
-                        <td>email通知 </td>
-                        <td>配置smtp发送邮件</td>
-                        <td>{{$e.type}}</td>
+                        <td>{{$e.setting_name}} </td>
+                        <td>{{$e.setting_dis}}</td>
+                        <td>{{$e.update_time}}</td>
                         <td><input class="switch" value="1"  type="checkbox"
                         {{if eq $e.status 1}}
-                        checked
+                                   checked
                         {{end}}
                         /></td>
-                        <td><button type="button" class="btn btn-info  btn-sm"  data-toggle="modal" data-target="#myModal">配置</button></td>
+                        <td><button type="button" class="btn btn-info  btn-sm"  onclick="settingSubFunc('{{$e.id}}')"   data-toggle="modal" data-target="#settingLoginModal">配置</button></td>
                     </tr>
                     {{end}}
-
                     </tbody>
                 </table>
             </div>
@@ -101,49 +130,97 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">邮件提醒配置</h4>
             </div>
-            <form id="addSubmit">
-            <div class="modal-body">
+                <div class="modal-body">
                     <div class="form-group">
                         <label for="">email</label>
-                        <input type="email" class="form-control" id="" name="email" placeholder="发件人email">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="发件人email">
                     </div>
-                <div class="form-group">
-                    <label for="">pass</label>
-                    <input type="text" class="form-control" id="" name="pass" placeholder="发件人的邮箱配置密码">
+                    <div class="form-group">
+                        <label for="">pass</label>
+                        <input type="text" class="form-control" id="pass" name="pass" placeholder="发件人的邮箱配置密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="">host</label>
+                        <input type="text" class="form-control" id="host" name="host" placeholder="例:smtp.126.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="">port</label>
+                        <input type="number" class="form-control" id="port" name="port" placeholder="例:465">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="">host</label>
-                    <input type="text" class="form-control" id="" name="host" placeholder="例:smtp.126.com">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" onclick="updateEmailPost()">Save</button>
                 </div>
-                <div class="form-group">
-                    <label for="">port</label>
-                    <input type="text" class="form-control" id="" name="port" placeholder="例:465">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
-            </div>
-            </form>
         </div>
     </div>
 </div>
+<!--Setting User Info Modal -->
+<div class="modal fade" id="settingLoginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">登录配置</h4>
+            </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">设置用户名</label>
+                        <input type="text" class="form-control" id="loginName" name="loginName" placeholder="请填写登录用户名">
+                    </div>
+                    <div class="form-group">
+                        <label for="">设置密码</label>
+                        <input type="password" class="form-control" id="loginPwd" name="loginPwd" placeholder="登录密码">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" onclick="addLoginPost()">Save</button>
+                </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="" id="settingId">
 {{template "footer" }}
 <script>
 
 
-
-    $('#addSubmit').on('submit', function(){
-        registPost()
-        event.preventDefault() //阻止form表单默认提交
-    })
-    function registPost () {
+    function settingSubFunc(id) {
+        $("#settingId").val(id)
+        console.log(id)
+    }
+    function updateEmailPost () {
+        var parms= {
+            email:$("#email").val(),
+            pass:$("#pass").val(),
+            host:$("#host").val(),
+            port:$("#port").val(),
+            id:$("#settingId").val()
+        }
+        console.log(parms)
         $.ajax({
             type: "post",
-            url: "/post/setting/add",
-            data: $('#addSubmit').serialize(),
+            url: "/post/setting/update",
+            data:parms,
         }).success(function(message) {
             $('#myModal').modal('hide')
+            console.log(message)
+        }).fail(function(err){
+            console.log(err)
+        })
+    }
+    function addLoginPost () {
+        var parms= {
+            loginName:$("#loginName").val(),
+            loginPwd:$("#loginPwd").val(),
+            id:$("#settingId").val()
+        };
+        $.ajax({
+            type: "post",
+            url: "/post/setting/login",
+            data: parms,
+        }).success(function(message) {
+            $('#settingLoginModal').modal('hide')
             console.log(message)
         }).fail(function(err){
             console.log(err)

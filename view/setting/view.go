@@ -6,50 +6,74 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"time"
 )
 
 func Html(c *gin.Context) {
-	data := getSetting()
+	subData := getSetting(0) //订阅通知等
+	setData := getSetting(1) //基本设置等
 	c.HTML(http.StatusOK, "setting.html", gin.H{
-		"settingList": data,
+		"subscribeList": subData,
+		"settingList":   setData,
 	})
 }
 
-func getSetting() []map[string]interface{} {
-	sql := "select id,type,info,create_time,status from coot_alert"
-	result := dbUtil.Query(sql)
+/*获取配置*/
+func getSetting(settingType int) []map[string]interface{} {
+	sql := "select id,type,info,setting_name,setting_dis,update_time,status from coot_setting where setting_type=?"
+	result := dbUtil.Query(sql, settingType)
 	return result
 }
 
-func AddAlertInfo(c *gin.Context) {
+/*更新邮件通知*/
+func UpdateEmailInfo(c *gin.Context) {
 	email := c.PostForm("email")
+	id := c.PostForm("id")
 	pass := c.PostForm("pass")
 	host := c.PostForm("host")
 	port := c.PostForm("port")
 	subType := c.PostForm("type")
+	and := "&&"
+	info := host + and + port + and + email + and + pass
 	fmt.Println(email, pass, host, port, subType)
-	//sql := `
-	//	INSERT INTO coot_alert (
-	//		type,
-	//		info,
-	//		status,
-	//		create_time,
-	//	)
-	//	VALUES
-	//		(?,?,?,?);`
-	//dbUtil.Insert(sql, info, subType, 1, time.Now().Format("2006-01-02 15:04"))
+	sql := `
+		UPDATE  coot_setting 
+		set	info = ?,
+			status = ?,
+			update_time = ?
+		where id = ?;`
+	dbUtil.Update(sql, info, 1, time.Now().Format("2006-01-02 15:04"), id)
 	c.JSON(http.StatusOK, error.ErrSuccessNull())
 }
 
-func UpdateAlertInfo(c *gin.Context) {
-	id := c.PostForm("alert_id")
-	status := c.PostForm("status")
+/*更新登录用户信息*/
+func UpdateLoginInfo(c *gin.Context) {
+	loginName := c.PostForm("loginName")
+	loginPwd := c.PostForm("loginPwd")
+	id := c.PostForm("id")
+	and := "&&"
+	info := loginName + and + loginPwd
+	fmt.Println(info)
 	sql := `
-		UPDATE coot_alert
-		SET status = ?
-		WHERE
-			id = ?;
-		`
-	dbUtil.Update(sql, status, id)
+		UPDATE  coot_setting 
+		set	info = ?,
+			status = ?,
+			update_time = ?
+		where id = ?;`
+	dbUtil.Update(sql, info, 1, time.Now().Format("2006-01-02 15:04"), id)
 	c.JSON(http.StatusOK, error.ErrSuccessNull())
 }
+
+//
+//func UpdateAlertInfo(c *gin.Context) {
+//	id := c.PostForm("alert_id")
+//	status := c.PostForm("status")
+//	sql := `
+//		UPDATE coot_alert
+//		SET status = ?
+//		WHERE
+//			id = ?;
+//		`
+//	dbUtil.Update(sql, status, id)
+//	c.JSON(http.StatusOK, error.ErrSuccessNull())
+//}

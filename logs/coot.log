@@ -1,6 +1,4 @@
-[GIN] 2019/07/15 - 15:57:16 | 200 |     2.33532ms |       127.0.0.1 | GET      /setting?email=jieggi%40163.com&pass=213&host=111&port=
-[GIN] 2019/07/15 - 15:57:17 | 404 |      97.724µs |       127.0.0.1 | GET      /static/js/jquery.min.map
-[GIN] 2019/07/15 - 15:57:17 | 200 |    9.848777ms |       127.0.0.1 | GET      /static/favicon.ico
-[GIN] 2019/07/15 - 15:57:19 | 200 |    2.102554ms |       127.0.0.1 | GET      /setting?email=jieggi%40163.com&pass=213&host=111&port=
-[GIN] 2019/07/15 - 15:57:19 | 404 |      32.931µs |       127.0.0.1 | GET      /static/js/jquery.min.map
-[GIN] 2019/07/15 - 15:57:19 | 200 |     284.214µs |       127.0.0.1 | GET      /static/favicon.ico
+[GIN] 2019/07/15 - 18:05:57 | 200 |    2.836566ms |       127.0.0.1 | GET      /setting?loginName=123&loginPwd=123
+[GIN] 2019/07/15 - 18:05:58 | 200 |     9.79896ms |       127.0.0.1 | GET      /static/favicon.ico
+[GIN] 2019/07/15 - 18:06:34 | 200 |    2.998431ms |       127.0.0.1 | GET      /setting?loginName=123&loginPwd=123
+[GIN] 2019/07/15 - 18:06:34 | 200 |     270.647µs |       127.0.0.1 | GET      /static/favicon.ico

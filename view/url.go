@@ -27,5 +27,6 @@ func LoadUrl(r *gin.Engine) {
 
 	// 设置
 	r.GET("/setting", setting.Html)
-	r.POST("/post/setting/add", setting.AddAlertInfo)
+	r.POST("/post/setting/update", setting.UpdateEmailInfo)
+	r.POST("/post/setting/login", setting.UpdateLoginInfo)
 }
