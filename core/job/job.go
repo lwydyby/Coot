@@ -9,22 +9,29 @@ import (
 	"github.com/gin-gonic/gin"
 	"strconv"
 	"time"
+	"Coot/utils/send"
+	"strings"
 )
 
 type Task struct {
 	/*
-		id         数据库ID
-		taskId     任务ID  添加的时候为空
-		TimeType   执行类型 1 秒执行，2 分钟执行，3 小时执行 ，4 每天指定时间执行，5 每月指定天和时间执行，6 年执行
-		Time   	   周期时间
+	 * Id         	数据库ID
+	 * Name		  	任务名称
+	 * TaskId     	任务ID  添加的时候为空
+	 * TimeType   	执行类型 1 秒执行，2 分钟执行，3 小时执行 ，4 每天指定时间执行，5 每月指定天和时间执行，6 年执行
+	 * Time   	  	周期时间
+	 * ScriptType 	脚本语言
+	 * ScriptPath 	脚本路径
 	*/
-	Id         string
-	Name       string
-	TaskId     string
-	TimeType   string
-	Time       string
-	ScriptType string
-	ScriptPath string
+	Id           string
+	Name         string
+	TaskId       string
+	TimeType     string
+	Time         string
+	ScriptType   string
+	ScriptPath   string
+	AlertType    string
+	AlertRecMail string
 }
 
 func updateExecTime(id string) {
@@ -43,21 +50,32 @@ func updateExecTime(id string) {
 func execute(t *Task) {
 	var id = t.Id
 	var cmd string
+
 	exeResult := "开始执行"
+
 	if t.ScriptType == "Python" {
 		cmd = "python " + t.ScriptPath
 	} else if t.ScriptType == "Shell" {
 		cmd = "sh " + t.ScriptPath
 	}
+
 	fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+"		"+exeResult+" id:"+id+"		任务名称:"+t.Name+"		执行命令:"+cmd)
 	result, err := exec.Execute(cmd)
+
 	if err != nil {
 		exeResult = "执行失败"
 	} else {
 		exeResult = "执行完成"
 	}
+
 	updateExecTime(id)
+
 	fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+"		"+exeResult+" id:"+id+"		任务名称:"+t.Name+"		脚本结果:"+result)
+
+	if t.AlertType == "mail" {
+		rec_list := strings.Split(t.AlertRecMail, ",")
+		send.SendMail(rec_list, "Coot["+t.Name+"]提醒你", result)
+	}
 }
 
 func mTask(t *Task, typs string) string {

@@ -1,111 +1,66 @@
-[GIN] 2019/07/14 - 21:24:20 | 200 |    1.452636ms |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:24:20 | 200 |    6.045794ms |             ::1 | GET      /static/libs/bootstrap-sweetalert/sweet-alert.css
-[GIN] 2019/07/14 - 21:24:20 | 200 |    4.563564ms |             ::1 | GET      /static/images/logo.png
-[GIN] 2019/07/14 - 21:24:20 | 200 |    4.614924ms |             ::1 | GET      /static/js/jquery.min.js
-[GIN] 2019/07/14 - 21:24:20 | 200 |    7.389575ms |             ::1 | GET      /static/css/style.css
-[GIN] 2019/07/14 - 21:24:20 | 200 |     240.333µs |             ::1 | GET      /static/js/bootstrap.min.js
-[GIN] 2019/07/14 - 21:24:20 | 200 |     248.494µs |             ::1 | GET      /static/libs/bootstrap-sweetalert/sweet-alert.min.js
-[GIN] 2019/07/14 - 21:24:20 | 200 |     289.981µs |             ::1 | GET      /static/js/jquery.core.js
-[GIN] 2019/07/14 - 21:24:20 | 200 |     185.437µs |             ::1 | GET      /static/js/jquery.app.js
-[GIN] 2019/07/14 - 21:24:20 | 200 |     205.157µs |             ::1 | GET      /static/fonts/Material-Design-Iconic-Font.woff2?v=2.2.0
-[GIN] 2019/07/14 - 21:24:20 | 200 |    1.246103ms |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:20 | 200 |     264.481µs |             ::1 | GET      /static/fonts/fontawesome-webfont.woff2?v=4.6.2
-[GIN] 2019/07/14 - 21:24:20 | 200 |     208.666µs |             ::1 | GET      /static/favicon.ico
-[GIN] 2019/07/14 - 21:24:21 | 200 |    1.151839ms |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:24:21 | 200 |    1.181373ms |             ::1 | GET      /static/images/logo.png
-[GIN] 2019/07/14 - 21:24:21 | 200 |    1.197996ms |             ::1 | GET      /static/libs/bootstrap-sweetalert/sweet-alert.css
-[GIN] 2019/07/14 - 21:24:21 | 200 |    1.639695ms |             ::1 | GET      /static/css/style.css
-[GIN] 2019/07/14 - 21:24:21 | 200 |      424.04µs |             ::1 | GET      /static/js/jquery.min.js
-[GIN] 2019/07/14 - 21:24:21 | 200 |     918.038µs |             ::1 | GET      /static/libs/bootstrap-sweetalert/sweet-alert.min.js
-[GIN] 2019/07/14 - 21:24:21 | 200 |      851.13µs |             ::1 | GET      /static/js/bootstrap.min.js
-[GIN] 2019/07/14 - 21:24:21 | 200 |     173.053µs |             ::1 | GET      /static/js/jquery.core.js
-[GIN] 2019/07/14 - 21:24:21 | 200 |     164.667µs |             ::1 | GET      /static/js/jquery.app.js
-[GIN] 2019/07/14 - 21:24:21 | 200 |     286.032µs |             ::1 | GET      /static/fonts/Material-Design-Iconic-Font.woff2?v=2.2.0
-[GIN] 2019/07/14 - 21:24:21 | 200 |    1.179185ms |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:21 | 200 |     360.946µs |             ::1 | GET      /static/fonts/fontawesome-webfont.woff2?v=4.6.2
-[GIN] 2019/07/14 - 21:24:21 | 200 |     291.733µs |             ::1 | GET      /static/favicon.ico
-[GIN] 2019/07/14 - 21:24:28 | 200 |    1.250787ms |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:24:28 | 200 |    2.503949ms |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:28 | 200 |     221.766µs |             ::1 | GET      /static/favicon.ico
-[GIN] 2019/07/14 - 21:24:29 | 200 |    1.243911ms |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:24:29 | 200 |     623.454µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:29 | 200 |     172.417µs |             ::1 | GET      /static/favicon.ico
-[GIN] 2019/07/14 - 21:24:29 | 200 |    1.132476ms |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:24:29 | 200 |     833.525µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:30 | 200 |     179.279µs |             ::1 | GET      /static/favicon.ico
-[GIN] 2019/07/14 - 21:24:47 | 200 |     975.092µs |             ::1 | GET      /plugs
-[GIN] 2019/07/14 - 21:24:47 | 304 |     278.345µs |             ::1 | GET      /static/css/style.css
-[GIN] 2019/07/14 - 21:24:48 | 200 |     952.529µs |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:24:48 | 200 |     585.764µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:49 | 200 |     893.278µs |             ::1 | GET      /
-[GIN] 2019/07/14 - 21:24:49 | 200 |     707.831µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:50 | 200 |     974.075µs |             ::1 | GET      /
-[GIN] 2019/07/14 - 21:24:50 | 200 |      604.19µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:50 | 200 |      162.57µs |             ::1 | GET      /static/favicon.ico
-[GIN] 2019/07/14 - 21:24:50 | 200 |    1.317255ms |             ::1 | GET      /plugs
-[GIN] 2019/07/14 - 21:24:51 | 200 |    1.261766ms |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:24:51 | 200 |     628.921µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:51 | 200 |     917.143µs |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:24:51 | 200 |     931.569µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:52 | 200 |     902.544µs |             ::1 | GET      /plugs
-[GIN] 2019/07/14 - 21:24:52 | 200 |    1.027988ms |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:24:52 | 200 |     782.893µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:53 | 200 |     990.902µs |             ::1 | GET      /
-[GIN] 2019/07/14 - 21:24:53 | 200 |     929.107µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:53 | 200 |     848.796µs |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:24:53 | 200 |     628.646µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:54 | 200 |    1.074171ms |             ::1 | GET      /plugs
-[GIN] 2019/07/14 - 21:24:54 | 200 |    1.298391ms |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:24:54 | 200 |     725.224µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:54 | 200 |    1.016084ms |             ::1 | GET      /
-[GIN] 2019/07/14 - 21:24:54 | 200 |    1.038928ms |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:55 | 200 |     1.32496ms |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:24:55 | 200 |     603.264µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:55 | 200 |    1.100497ms |             ::1 | GET      /plugs
-[GIN] 2019/07/14 - 21:24:56 | 200 |    1.074848ms |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:24:56 | 200 |     623.313µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:56 | 200 |    1.015938ms |             ::1 | GET      /
-[GIN] 2019/07/14 - 21:24:56 | 200 |     877.447µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:56 | 200 |    1.639722ms |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:24:56 | 200 |     605.915µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:57 | 200 |     949.407µs |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:24:57 | 200 |       610.6µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:57 | 200 |    1.150121ms |             ::1 | GET      /plugs
-[GIN] 2019/07/14 - 21:24:58 | 200 |    1.177624ms |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:24:58 | 200 |      662.89µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:24:59 | 200 |    1.332876ms |             ::1 | GET      /
-[GIN] 2019/07/14 - 21:24:59 | 304 |      87.878µs |             ::1 | GET      /static/css/style.css
-[GIN] 2019/07/14 - 21:24:59 | 200 |     620.373µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:25:00 | 200 |     960.218µs |             ::1 | GET      /
-[GIN] 2019/07/14 - 21:25:00 | 200 |     610.287µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:25:00 | 200 |     169.275µs |             ::1 | GET      /static/favicon.ico
-[GIN] 2019/07/14 - 21:25:01 | 200 |     809.828µs |             ::1 | GET      /plugs
-[GIN] 2019/07/14 - 21:25:02 | 200 |    1.066278ms |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:25:02 | 200 |     756.912µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:25:02 | 200 |    1.008975ms |             ::1 | GET      /
-[GIN] 2019/07/14 - 21:25:02 | 200 |     598.477µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:25:03 | 200 |      953.22µs |             ::1 | GET      /
-[GIN] 2019/07/14 - 21:25:03 | 200 |     698.689µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:25:03 | 200 |     171.505µs |             ::1 | GET      /static/favicon.ico
-[GIN] 2019/07/14 - 21:25:04 | 200 |    1.991286ms |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:25:04 | 200 |     676.908µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:25:05 | 200 |     934.029µs |             ::1 | GET      /plugs
-[GIN] 2019/07/14 - 21:25:06 | 200 |     982.108µs |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:25:06 | 200 |     627.835µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:25:06 | 200 |    1.231697ms |             ::1 | GET      /plugs
-[GIN] 2019/07/14 - 21:25:07 | 200 |    1.088985ms |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:25:07 | 200 |    1.082112ms |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:25:09 | 200 |      1.0272ms |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:25:09 | 200 |     626.341µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:25:09 | 200 |     227.207µs |             ::1 | GET      /static/favicon.ico
-[GIN] 2019/07/14 - 21:25:10 | 200 |     741.711µs |             ::1 | GET      /plugs
-[GIN] 2019/07/14 - 21:25:10 | 200 |    1.017799ms |             ::1 | GET      /
-[GIN] 2019/07/14 - 21:25:10 | 200 |     587.074µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:25:11 | 200 |     867.851µs |             ::1 | GET      /plugs
-[GIN] 2019/07/14 - 21:25:12 | 200 |     933.819µs |             ::1 | GET      /task
-[GIN] 2019/07/14 - 21:25:12 | 304 |      84.565µs |             ::1 | GET      /static/css/style.css
-[GIN] 2019/07/14 - 21:25:12 | 200 |     586.347µs |             ::1 | GET      /get/task/list
-[GIN] 2019/07/14 - 21:25:13 | 200 |    1.166058ms |             ::1 | GET      /task/add
-[GIN] 2019/07/14 - 21:25:13 | 304 |     150.148µs |             ::1 | GET      /static/images/xy.png
-[GIN] 2019/07/14 - 21:25:14 | 200 |     1.90887ms |             ::1 | GET      /
-[GIN] 2019/07/14 - 21:25:14 | 200 |     717.568µs |             ::1 | GET      /get/task/list
+[GIN] 2019/07/15 - 11:02:16 | 200 |    1.629307ms |             ::1 | GET      /task
+[GIN] 2019/07/15 - 11:02:17 | 200 |    1.168043ms |             ::1 | GET      /get/task/list
+[GIN] 2019/07/15 - 11:02:17 | 200 |    3.632089ms |             ::1 | GET      /static/favicon.ico
+[GIN] 2019/07/15 - 11:02:19 | 200 |    5.097083ms |             ::1 | POST     /task/start
+[GIN] 2019/07/15 - 11:02:19 | 200 |    1.184055ms |             ::1 | GET      /task
+[GIN] 2019/07/15 - 11:02:19 | 200 |     797.031µs |             ::1 | GET      /get/task/list
+2019-07-15 11:02:21		开始执行 id:23		任务名称:Python测试		执行命令:python ./scripts/f2caf7aa24a4c4c8a6373b986058fcd1.py
+2019-07-15 11:02:21		执行完成 id:23		任务名称:Python测试		脚本结果:246
+python test
+
+2019-07-15 11:02:23		开始执行 id:23		任务名称:Python测试		执行命令:python ./scripts/f2caf7aa24a4c4c8a6373b986058fcd1.py
+2019-07-15 11:02:23		执行完成 id:23		任务名称:Python测试		脚本结果:246
+python test
+
+2019-07-15 11:02:25
+2019-07-15 11:02:25
+2019-07-15 11:02:25		开始执行 id:23		任务名称:Python测试		执行命令:python ./scripts/f2caf7aa24a4c4c8a6373b986058fcd1.py
+2019-07-15 11:02:25		执行完成 id:23		任务名称:Python测试		脚本结果:246
+python test
+
+2019-07-15 11:02:27		开始执行 id:23		任务名称:Python测试		执行命令:python ./scripts/f2caf7aa24a4c4c8a6373b986058fcd1.py
+2019-07-15 11:02:27		执行完成 id:23		任务名称:Python测试		脚本结果:246
+python test
+
+2019-07-15 11:02:28
+2019-07-15 11:02:29
+2019-07-15 11:02:29		开始执行 id:23		任务名称:Python测试		执行命令:python ./scripts/f2caf7aa24a4c4c8a6373b986058fcd1.py
+2019-07-15 11:02:29		执行完成 id:23		任务名称:Python测试		脚本结果:246
+python test
+
+2019-07-15 11:02:31		开始执行 id:23		任务名称:Python测试		执行命令:python ./scripts/f2caf7aa24a4c4c8a6373b986058fcd1.py
+2019-07-15 11:02:31		执行完成 id:23		任务名称:Python测试		脚本结果:246
+python test
+
+2019-07-15 11:02:33
+2019-07-15 11:02:33		开始执行 id:23		任务名称:Python测试		执行命令:python ./scripts/f2caf7aa24a4c4c8a6373b986058fcd1.py
+2019-07-15 11:02:33		执行完成 id:23		任务名称:Python测试		脚本结果:246
+python test
+
+2019-07-15 11:02:34
+2019-07-15 11:02:35
+2019-07-15 11:02:35		开始执行 id:23		任务名称:Python测试		执行命令:python ./scripts/f2caf7aa24a4c4c8a6373b986058fcd1.py
+2019-07-15 11:02:35		执行完成 id:23		任务名称:Python测试		脚本结果:246
+python test
+
+2019-07-15 11:02:36
+2019-07-15 11:02:37		开始执行 id:23		任务名称:Python测试		执行命令:python ./scripts/f2caf7aa24a4c4c8a6373b986058fcd1.py
+2019-07-15 11:02:37		执行完成 id:23		任务名称:Python测试		脚本结果:246
+python test
+
+2019-07-15 11:02:38
+2019-07-15 11:02:39		开始执行 id:23		任务名称:Python测试		执行命令:python ./scripts/f2caf7aa24a4c4c8a6373b986058fcd1.py
+2019-07-15 11:02:39		执行完成 id:23		任务名称:Python测试		脚本结果:246
+python test
+
+2019-07-15 11:02:40
+2019-07-15 11:02:41		开始执行 id:23		任务名称:Python测试		执行命令:python ./scripts/f2caf7aa24a4c4c8a6373b986058fcd1.py
+2019-07-15 11:02:41		执行完成 id:23		任务名称:Python测试		脚本结果:246
+python test
+
+2019-07-15 11:02:42
+2019-07-15 11:02:43		开始执行 id:23		任务名称:Python测试		执行命令:python ./scripts/f2caf7aa24a4c4c8a6373b986058fcd1.py
+2019-07-15 11:02:43		执行完成 id:23		任务名称:Python测试		脚本结果:246
+python test
+
+2019-07-15 11:02:44

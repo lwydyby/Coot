@@ -1,5 +1,5 @@
-hash: 61b79667148059b0426c649547c45310c173e55b23f7fcd627cc807f01bd745f
-updated: 2019-07-10T15:46:06.637231+08:00
+hash: 1c336272b90f9edea5b35fd10f7efd140e1395506011ffc852371681cd3284cf
+updated: 2019-07-15T10:13:57.425894+08:00
 imports:
 - name: github.com/domgoer/gotask
   version: 64ba404b715205fccced8930040bb84967e3086b
@@ -35,8 +35,12 @@ imports:
   version: 04f50cda93cbb67f2afa353c52f342100e80e625
   subpackages:
   - unix
+- name: gopkg.in/alexcesaro/quotedprintable.v3
+  version: 2caba252f4dc53eaf6b553000885530023f54623
 - name: gopkg.in/go-playground/validator.v8
   version: 5f1438d3fca68893a817e4a66806cea46a9e4ebf
+- name: gopkg.in/gomail.v2
+  version: 81ebce5c23dfd25c6c67194b37d3dd3f338c98b1
 - name: gopkg.in/yaml.v2
   version: 51d6538a90f86fe93ac480b35f37b2be17fef232
 testImports: []

@@ -23,7 +23,10 @@ func main() {
 
 	// 加载路由
 	view.LoadUrl(r)
+
+	// 清除 task_id
 	task.UpdateTaskAll()
+
 	// 监听并在 0.0.0.0:8080 上启动服务
 	r.Run()
 }

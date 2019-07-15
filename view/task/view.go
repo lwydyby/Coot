@@ -120,13 +120,16 @@ func UpdateTaskAll() {
 func TaskStart(c *gin.Context) {
 	id := c.PostForm("id")
 
-	sql := `select id,task_name,task_explain,task_id,task_time_type,task_time,last_exec_time,script_type,script_path,create_time from coot_tasks WHERE id = ?;`
+	sql := `select id,task_name,task_explain,task_id,task_time_type,task_time,last_exec_time,script_type,script_path,alert_type,alert_rec_mail,create_time from coot_tasks WHERE id = ?;`
 	result := dbUtil.Query(sql, id)
+
 	taskName := result[0]["task_name"]
 	taskTimeType := result[0]["task_time_type"]
 	taskTime := result[0]["task_time"]
 	scriptType := result[0]["script_type"]
 	scriptPath := result[0]["script_path"]
+	alertType := result[0]["alert_type"]
+	alertRecMail := result[0]["alert_rec_mail"]
 
 	// 启动任务
 	taskId := job.AddJob(&job.Task{
@@ -137,6 +140,8 @@ func TaskStart(c *gin.Context) {
 		taskTime.(string),
 		scriptType.(string),
 		scriptPath.(string),
+		alertType.(string),
+		alertRecMail.(string),
 	})
 
 	// 更新数据库
@@ -149,7 +154,7 @@ func TaskStart(c *gin.Context) {
 func TaskStop(c *gin.Context) {
 	id := c.PostForm("id")
 
-	sql := `select id,task_name,task_explain,task_id,task_time_type,task_time,last_exec_time,script_type,script_path,create_time from coot_tasks WHERE id = ?;`
+	sql := `select task_id from coot_tasks WHERE id = ?;`
 	result := dbUtil.Query(sql, id)
 
 	taskId := result[0]["task_id"]
