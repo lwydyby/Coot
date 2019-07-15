@@ -1,32 +1,31 @@
 package main
 
 import (
-	"Coot/view"
-	"Coot/view/task"
-	"github.com/gin-gonic/gin"
-	"io"
 	"os"
+	"fmt"
+	"Coot/utils/setting"
 )
 
 func main() {
-	gin.DisableConsoleColor()
-	f, _ := os.Create("./logs/coot.log")
-	gin.DefaultWriter = io.MultiWriter(f)
-	// 引入gin
-	r := gin.Default()
+	args := os.Args
 
-	// 引入html资源
-	r.LoadHTMLGlob("web/*")
-
-	// 引入静态资源
-	r.Static("/static", "./static")
-
-	// 加载路由
-	view.LoadUrl(r)
-
-	// 清除 task_id
-	task.UpdateTaskAll()
-
-	// 监听并在 0.0.0.0:8080 上启动服务
-	r.Run()
+	if args == nil || len(args) < 2 {
+		setting.Help()
+	} else {
+		if args[1] == "help" || args[1] == "--help" {
+			setting.Help()
+		} else if args[1] == "init" || args[1] == "--init" {
+			setting.Init()
+		} else if args[1] == "version" || args[1] == "--version" {
+			fmt.Println("0.1")
+		} else if args[1] == "run" || args[1] == "--run" {
+			if len(args) >= 3 {
+				setting.RunWeb(args[2])
+			} else {
+				setting.RunWeb("localhost:9000")
+			}
+		} else {
+			setting.Help()
+		}
+	}
 }
