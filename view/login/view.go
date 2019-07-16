@@ -1,11 +1,11 @@
 package login
 
 import (
+	"Coot/core/dbUtil"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"Coot/core/dbUtil"
 	"strconv"
-	"fmt"
+	"strings"
 )
 
 func findLoginStatus() string {
@@ -40,11 +40,16 @@ func Jump(c *gin.Context) {
 }
 
 func Login(c *gin.Context) {
-
-	sql := `select info from coot_setting where type="login";`
+	loginName := c.PostForm("loginName")
+	loginPwd := c.PostForm("loginPwd")
+	sql := `select info,status from coot_setting where type="login";`
 	result := dbUtil.Query(sql)
-
-	info := result[0]["status"].(string)
-
-	fmt.Println(info)
+	info := result[0]["info"].(string)
+	infoArr := strings.Split(info, "&&")
+	if loginName == infoArr[0] && loginPwd == infoArr[1] {
+		c.Set("userToken", infoArr[0])
+		c.Redirect(http.StatusOK, "/task")
+		return
+	}
+	c.JSON(http.StatusOK, "")
 }

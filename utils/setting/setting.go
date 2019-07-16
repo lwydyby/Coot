@@ -1,14 +1,14 @@
 package setting
 
 import (
-	"github.com/gin-gonic/gin"
-	"os"
-	"io"
+	"Coot/core/exec"
+	"Coot/utils/color"
 	"Coot/view"
 	"Coot/view/task"
 	"fmt"
-	"Coot/utils/color"
-	"Coot/core/exec"
+	"github.com/gin-gonic/gin"
+	"io"
+	"os"
 )
 
 func RunWeb(addr string) {
@@ -17,7 +17,6 @@ func RunWeb(addr string) {
 	gin.DefaultWriter = io.MultiWriter(f)
 	// 引入gin
 	r := gin.Default()
-
 	// 引入html资源
 	r.LoadHTMLGlob("web/*")
 

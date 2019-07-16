@@ -4,13 +4,13 @@ import (
 	"Coot/core/dbUtil"
 	"Coot/core/exec"
 	"Coot/error"
+	"Coot/utils/send"
 	"fmt"
 	"github.com/domgoer/gotask"
 	"github.com/gin-gonic/gin"
 	"strconv"
-	"time"
-	"Coot/utils/send"
 	"strings"
+	"time"
 )
 
 type Task struct {
@@ -22,7 +22,7 @@ type Task struct {
 	 * Time   	  	周期时间
 	 * ScriptType 	脚本语言
 	 * ScriptPath 	脚本路径
-	*/
+	 */
 	Id           string
 	Name         string
 	TaskId       string
