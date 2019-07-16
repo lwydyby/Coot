@@ -28,14 +28,14 @@ func middleware() gin.HandlerFunc {
 		c.Next()
 	}
 }
+
 func LoadUrl(r *gin.Engine) {
 	r.GET("/login", login.Html)
 	r.POST("/login", login.Login)
 	//r.Use(middleware())
 	// 仪表盘
-	r.GET("/", dashboard.Html)
+	r.GET("/", login.Jump)
 	r.GET("/dashboard", dashboard.Html)
-	//r.GET("/dashboard/get/data", dashboard.Get)
 
 	// 任务
 	r.GET("/task", task.Html)
