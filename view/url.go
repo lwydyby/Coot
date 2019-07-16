@@ -21,7 +21,7 @@ func middleware() gin.HandlerFunc {
 		tokenStr, err := c.Cookie("userToken")
 		fmt.Println(tokenStr, err)
 		if err != nil {
-			c.JSON(http.StatusUnauthorized, error.ErrSuccessCustom(10002, nil))
+			c.JSON(http.StatusUnauthorized, error.ErrSuccessCustom(10002, "success", nil))
 			c.Abort()
 			return
 		}
@@ -31,7 +31,7 @@ func middleware() gin.HandlerFunc {
 func LoadUrl(r *gin.Engine) {
 	r.GET("/login", login.Html)
 	r.POST("/login", login.Login)
-	r.Use(middleware())
+	//r.Use(middleware())
 	// 仪表盘
 	r.GET("/", dashboard.Html)
 	r.GET("/dashboard", dashboard.Html)
@@ -51,6 +51,7 @@ func LoadUrl(r *gin.Engine) {
 
 	// 设置
 	r.GET("/setting", setting.Html)
+	r.GET("/get/setting/info", setting.GetSettingInfo)
 	r.POST("/post/setting/update", setting.UpdateEmailInfo)
 	r.POST("/post/setting/login", setting.UpdateLoginInfo)
 	r.POST("/post/setting/checkSetting", setting.UpdateStatusSetting)

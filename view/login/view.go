@@ -54,5 +54,5 @@ func Login(c *gin.Context) {
 		c.JSON(http.StatusOK, error.ErrSuccessNull())
 		return
 	}
-	c.JSON(http.StatusOK, error.ErrSuccessCustom(10001, nil))
+	c.JSON(http.StatusOK, error.ErrSuccessCustom(10001, "success", nil))
 }

@@ -70,7 +70,7 @@
             data: params,
         }).success(function(data) {
             if(data.code==200){
-                location.replace("/task")
+                console.log(data)
             }else{
                 alert("账号密码错误")
             }
