@@ -19,13 +19,6 @@ func ErrSuccess(data []map[string]interface{}) map[string]interface{} {
 		"data": data,
 	}
 }
-func ErrSuccessCustom(code int, msg string, data []map[string]interface{}) map[string]interface{} {
-	return gin.H{
-		"code": code,
-		"msg":  msg,
-		"data": data,
-	}
-}
 func ErrSuccessNull() map[string]interface{} {
 	return gin.H{
 		"code": 200,

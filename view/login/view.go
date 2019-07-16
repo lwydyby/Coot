@@ -54,5 +54,5 @@ func Login(c *gin.Context) {
 		c.JSON(http.StatusOK, error.ErrSuccessNull())
 		return
 	}
-	c.JSON(http.StatusOK, error.ErrSuccessCustom(10001, "success", nil))
+	c.JSON(http.StatusOK, gin.H{"code": 10001, "msg": "请配置后在启用", "data": nil})
 }
