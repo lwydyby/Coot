@@ -3,7 +3,6 @@ package login
 import (
 	"Coot/core/dbUtil"
 	"Coot/error"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -44,15 +43,28 @@ func Jump(c *gin.Context) {
 func Login(c *gin.Context) {
 	loginName := c.PostForm("loginName")
 	loginPwd := c.PostForm("loginPwd")
+
 	sql := `select info,status from coot_setting where type="login";`
 	result := dbUtil.Query(sql)
+
 	info := result[0]["info"].(string)
+
 	infoArr := strings.Split(info, "&&")
+
 	if loginName == infoArr[0] && loginPwd == infoArr[1] {
-		c.SetCookie("userToken", infoArr[0], 60*5, "/", "localhost", false, true)
-		fmt.Println(infoArr)
+
+		cookie := &http.Cookie{
+			Name:     "is_login",
+			Value:    infoArr[0],
+			Path:     "/",
+			HttpOnly: true,
+		}
+
+		http.SetCookie(c.Writer, cookie)
+
 		c.JSON(http.StatusOK, error.ErrSuccessNull())
 		return
 	}
-	c.JSON(http.StatusOK, error.ErrSuccessCustom(10001, "success", nil))
+
+	c.JSON(http.StatusOK, error.ErrLoginFail())
 }

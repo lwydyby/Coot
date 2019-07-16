@@ -4,15 +4,18 @@
         padding: 0px;
     }
 
-
     thead {
         background: #f5f5f5;
     }
 
-
-    .btn-sm{
+    .btn-sm {
         padding: 2px 6px;
         font-size: 12px;
+    }
+
+    .text-danger {
+        color: #ff5d48 !important;
+        margin-right: 5px;
     }
 </style>
 <div class="row">
@@ -42,18 +45,24 @@
                         <td>{{$e.setting_dis}}</td>
                         <td>{{$e.update_time}}</td>
                         <td>{{if ne $e.info ""}}
-                                已配置
-                            {{else}}
+                            已配置
+                        {{else}}
                             未配置
-                            {{end}}
-                    </td>
-                        <td><input type="checkbox" id="checkbox-{{$e.id}}"  data-plugin="switchery" onchange="updateStatusFunc('{{$e.id}}',this)" data-color="#039cfd" data-size="small"
+                        {{end}}
+                        </td>
+                        <td><input type="checkbox" id="checkbox-{{$e.id}}" data-plugin="switchery"
+                                   onchange="updateStatusFunc('{{$e.id}}',this)" data-color="#039cfd" data-size="small"
                         {{if eq $e.status 1}}
-                               checked
+                                   checked
                         {{end}}
                         />
                         </td>
-                        <td><button type="button" class="btn btn-primary  btn-sm" onclick="settingSubFunc('{{$e.id}}','{{$e.type}}')"  data-toggle="modal" ><i class="fa fa-edit"></i> 配置</button></td>
+                        <td>
+                            <button type="button" class="btn btn-primary  btn-sm"
+                                    onclick="settingSubFunc('{{$e.id}}','{{$e.type}}')" data-toggle="modal"><i
+                                    class="fa fa-edit"></i> 配置
+                            </button>
+                        </td>
                     </tr>
                     {{end}}
                     </tbody>
@@ -69,30 +78,31 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title" id="myModalLabel">E-mail 通知设置</h4>
             </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="">发送人(账号)</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="请填写发送人账号">
-                    </div>
-                    <div class="form-group">
-                        <label for="">密码</label>
-                        <input type="text" class="form-control" id="pass" name="pass" placeholder="请填写发送人密码">
-                    </div>
-                    <div class="form-group">
-                        <label for="">SMTP</label>
-                        <input type="text" class="form-control" id="host" name="host" placeholder="例:smtp.126.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="">端口</label>
-                        <input type="number" class="form-control" id="port" name="port" placeholder="例:465">
-                    </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for=""><span class="text-danger">*</span>发送人(账号)</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="请填写发送人账号">
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" onclick="updateEmailPost()">Save</button>
+                <div class="form-group">
+                    <label for=""><span class="text-danger">*</span>密码</label>
+                    <input type="text" class="form-control" id="pass" name="pass" placeholder="请填写发送人密码">
                 </div>
+                <div class="form-group">
+                    <label for=""><span class="text-danger">*</span>SMTP</label>
+                    <input type="text" class="form-control" id="host" name="host" placeholder="例:smtp.126.com">
+                </div>
+                <div class="form-group">
+                    <label for=""><span class="text-danger">*</span>端口</label>
+                    <input type="number" class="form-control" id="port" name="port" placeholder="例:465">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" onclick="updateEmailPost()">Save</button>
+            </div>
         </div>
     </div>
 </div>
@@ -101,22 +111,23 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
                 <h4 class="modal-title" id="myModalLabel">登录配置</h4>
             </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="">登录账号</label>
-                        <input type="text" class="form-control" id="loginName" name="loginName" placeholder="请填写登录账号">
-                    </div>
-                    <div class="form-group">
-                        <label for="">登录密码</label>
-                        <input type="password" class="form-control" id="loginPwd" name="loginPwd" placeholder="请填写登录密码">
-                    </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">登录账号</label>
+                    <input type="text" class="form-control" id="loginName" name="loginName" placeholder="请填写登录账号">
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" onclick="addLoginPost()">Save</button>
+                <div class="form-group">
+                    <label for="">登录密码</label>
+                    <input type="password" class="form-control" id="loginPwd" name="loginPwd" placeholder="请填写登录密码">
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" onclick="addLoginPost()">Save</button>
+            </div>
         </div>
     </div>
 </div>
@@ -125,9 +136,9 @@
 <script>
 
 
-    function settingSubFunc(id,type) {
+    function settingSubFunc(id, type) {
         $("#settingId").val(id)
-        getSettingInfo(id,type)
+        getSettingInfo(id, type)
         switch (type) {
             case "mail":
                 $('#myModal').modal('show')
@@ -139,85 +150,88 @@
                 break
         }
     }
-    var getSettingInfo=function(id,type){
+
+    var getSettingInfo = function (id, type) {
         $.ajax({
             type: "get",
-            url: "/get/setting/info?id="+id,
-        }).success(function(result) {
-            if(result.code==200){
-                var arr =result.data[0].info.split("&&")
+            url: "/get/setting/info?id=" + id,
+        }).success(function (result) {
+            if (result.code == 200) {
+                var arr = result.data[0].info.split("&&")
                 console.log(arr)
-                if(arr.length==4&&result.data[0].type=="mail"){
+                if (arr.length == 4 && result.data[0].type == "mail") {
                     $("#email").val(arr[2])
                     $("#pass").val(arr[3])
                     $("#host").val(arr[0])
                     $("#port").val(arr[1])
-                }else if(arr.length==2&&result.data[0].type=="login"){
-                $("#loginName").val(arr[0])
-                $("#loginPwd").val(arr[1])
+                } else if (arr.length == 2 && result.data[0].type == "login") {
+                    $("#loginName").val(arr[0])
+                    $("#loginPwd").val(arr[1])
                 }
             }
-        }).fail(function(err){
+        }).fail(function (err) {
             console.log(err)
         })
     }
-    function updateEmailPost () {
-        var params= {
-            email:$("#email").val(),
-            pass:$("#pass").val(),
-            host:$("#host").val(),
-            port:$("#port").val(),
-            id:$("#settingId").val()
+
+    function updateEmailPost() {
+        var params = {
+            email: $("#email").val(),
+            pass: $("#pass").val(),
+            host: $("#host").val(),
+            port: $("#port").val(),
+            id: $("#settingId").val()
         }
         $.ajax({
             type: "post",
             url: "/post/setting/update",
-            data:params,
-        }).success(function(result) {
-            if(result.code==200){
-                $("#checkbox-"+params.id).click()
+            data: params,
+        }).success(function (result) {
+            if (result.code == 200) {
+                $("#checkbox-" + params.id).click()
             }
             $('#myModal').modal('hide')
 
-        }).fail(function(err){
+        }).fail(function (err) {
             console.log(err)
         })
     }
-    function addLoginPost () {
-        var params= {
-            loginName:$("#loginName").val(),
-            loginPwd:$("#loginPwd").val(),
-            id:$("#settingId").val()
+
+    function addLoginPost() {
+        var params = {
+            loginName: $("#loginName").val(),
+            loginPwd: $("#loginPwd").val(),
+            id: $("#settingId").val()
         };
         $.ajax({
             type: "post",
             url: "/post/setting/login",
             data: params,
-        }).success(function(result) {
-            if(result.code==200){
-                $("#checkbox-"+params.id).click()
+        }).success(function (result) {
+            if (result.code == 200) {
+                $("#checkbox-" + params.id).click()
             }
             $('#settingLoginModal').modal('hide')
-        }).fail(function(err){
+        }).fail(function (err) {
             console.log(err)
         })
     }
 
-    function updateStatusFunc(id,ele) {
+    function updateStatusFunc(id, ele) {
         var params = {
             id,
-            status:$(ele).is(":checked")?1:0
+            status: $(ele).is(":checked") ? 1 : 0
         }
         $.ajax({
             type: "post",
             url: "/post/setting/checkSetting",
             data: params,
-        }).success(function(result) {
-            if(result.code=="10003"){
+        }).success(function (result) {
+            if (result.code == "10003") {
                 alert(result.msg)
                 $(ele).click()
             }
-        }).fail(function(err){
+        }).fail(function (err) {
             console.log(err)
         })
     }

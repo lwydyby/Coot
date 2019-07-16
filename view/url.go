@@ -2,38 +2,17 @@ package view
 
 import (
 	"Coot/view/dashboard"
-	"Coot/view/login"
 	"Coot/view/plug"
 	"Coot/view/setting"
 	"Coot/view/task"
-	"fmt"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
-func middleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		if c.Request.URL.Path == "/favicon.ico" {
-			c.Next()
-			return
-		}
-		tokenStr, err := c.Cookie("userToken")
-		fmt.Println(tokenStr, err)
-		if err != nil {
-			c.JSON(http.StatusUnauthorized, gin.H{"code": 10002, "msg": "success", "data": nil})
-			c.Abort()
-			return
-		}
-		c.Next()
-	}
-}
-
 func LoadUrl(r *gin.Engine) {
-	r.GET("/login", login.Html)
-	r.POST("/login", login.Login)
-	//r.Use(middleware())
+	//r.GET("/login", login.Html)
+	//r.POST("/login", login.Login)
 	// 仪表盘
-	r.GET("/", login.Jump)
+	r.GET("/", dashboard.Html)
 	r.GET("/dashboard", dashboard.Html)
 
 	// 任务

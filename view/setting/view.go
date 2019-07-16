@@ -3,7 +3,6 @@ package setting
 import (
 	"Coot/core/dbUtil"
 	"Coot/error"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
@@ -19,7 +18,7 @@ func Html(c *gin.Context) {
 
 /*获取配置*/
 func getSetting() []map[string]interface{} {
-	sql := "select id,type,info,setting_name,setting_dis,update_time,status from coot_setting"
+	sql := "select id,type,info,setting_name,setting_dis,update_time,status from coot_setting where type='mail'"
 	result := dbUtil.Query(sql)
 	return result
 }
@@ -48,10 +47,9 @@ func UpdateEmailInfo(c *gin.Context) {
 	pass := c.PostForm("pass")
 	host := c.PostForm("host")
 	port := c.PostForm("port")
-	subType := c.PostForm("type")
+	//subType := c.PostForm("type")
 	and := "&&"
 	info := host + and + port + and + email + and + pass
-	fmt.Println(email, pass, host, port, subType)
 	sql := `
 		UPDATE  coot_setting 
 		set	info = ?,
@@ -69,7 +67,6 @@ func UpdateLoginInfo(c *gin.Context) {
 	id := c.PostForm("id")
 	and := "&&"
 	info := loginName + and + loginPwd
-	fmt.Println(info)
 	sql := `
 		UPDATE  coot_setting 
 		set	info = ?,

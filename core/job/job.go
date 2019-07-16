@@ -60,7 +60,8 @@ func execute(t *Task) {
 
 	// 开始执行任务
 	exeResult := "开始执行"
-	fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+"		"+exeResult+" id:"+id+"		任务名称:"+t.Name+"		执行命令:"+cmd)
+
+	fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+" "+exeResult+" id:"+id+" 任务名称:"+t.Name+" 执行命令:"+cmd)
 	result, err := exec.Execute(cmd)
 
 	if err != nil {
@@ -69,11 +70,11 @@ func execute(t *Task) {
 		exeResult = "执行完成"
 	}
 
-	fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+"		"+exeResult+" id:"+id+"		任务名称:"+t.Name+"		脚本结果:"+result)
+	fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+" "+exeResult+" id:"+id+" 任务名称:"+t.Name+" 脚本结果:"+result)
 
 	// 判断是否开启邮箱通知
 	if t.AlertType == "mail" {
-		sql := `select status from coot_setting where type="mail";`
+		sql := `select status,info from coot_setting where type="mail";`
 		isAlertStatus := dbUtil.Query(sql)
 
 		status := strconv.FormatInt(isAlertStatus[0]["status"].(int64), 10)
@@ -82,9 +83,10 @@ func execute(t *Task) {
 		if status == "1" {
 			r := strings.Split(result, "&&")
 
+			// 判断脚本 code 是否 为 0
 			if r[0] == "0" {
 				recList := strings.Split(t.AlertRecMail, ",")
-				send.SendMail(recList, "Coot["+t.Name+"]提醒你", result)
+				send.SendMail(recList, "Coot["+t.Name+"]提醒你", r[1], isAlertStatus)
 			}
 		}
 	}

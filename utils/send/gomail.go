@@ -3,23 +3,16 @@ package send
 import (
 	"strconv"
 	"gopkg.in/gomail.v2"
-	"Coot/core/dbUtil"
 	"strings"
 	"github.com/gin-gonic/gin"
 	"time"
 	"fmt"
 )
 
-func findMailConfig() []map[string]interface{} {
-	sql := `select info from coot_alert where type="mail";`
-	result := dbUtil.Query(sql)
-	return result
-}
-
-func SendMail(mailTo []string, subject string, body string) error {
+func SendMail(mailTo []string, subject string, body string, findMailConfig []map[string]interface{}) error {
 
 	// smtp&&post&&user&&password
-	info := findMailConfig()[0]["info"]
+	info := findMailConfig[0]["info"]
 
 	config := strings.Split(info.(string), "&&")
 
@@ -35,7 +28,11 @@ func SendMail(mailTo []string, subject string, body string) error {
 
 	err := d.DialAndSend(m)
 
-	fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05"))
+	if err != nil {
+		fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+" 发送邮件通知失败 ", err)
+	} else {
+		fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+" 发送邮件通知成功")
+	}
 
 	return err
 }
