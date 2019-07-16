@@ -158,7 +158,6 @@
         }).success(function (result) {
             if (result.code == 200) {
                 var arr = result.data[0].info.split("&&")
-                console.log(arr)
                 if (arr.length == 4 && result.data[0].type == "mail") {
                     $("#email").val(arr[2])
                     $("#pass").val(arr[3])
@@ -188,7 +187,10 @@
             data: params,
         }).success(function (result) {
             if (result.code == 200) {
-                $("#checkbox-" + params.id).click()
+                if(!$("#checkbox-" + params.id).prop("checked")){
+                    $("#checkbox-" + params.id).click()
+                }
+
             }
             $('#myModal').modal('hide')
 
@@ -209,7 +211,9 @@
             data: params,
         }).success(function (result) {
             if (result.code == 200) {
-                $("#checkbox-" + params.id).click()
+                if(!$("#checkbox-" + params.id).prop("checked")){
+                    $("#checkbox-" + params.id).click()
+                }
             }
             $('#settingLoginModal').modal('hide')
         }).fail(function (err) {
@@ -228,7 +232,7 @@
             data: params,
         }).success(function (result) {
             if (result.code == "10003") {
-                alert(result.msg)
+                swal(result.msg)
                 $(ele).click()
             }
         }).fail(function (err) {
