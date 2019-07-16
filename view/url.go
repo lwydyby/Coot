@@ -31,4 +31,5 @@ func LoadUrl(r *gin.Engine) {
 	r.GET("/setting", setting.Html)
 	r.POST("/post/setting/update", setting.UpdateEmailInfo)
 	r.POST("/post/setting/login", setting.UpdateLoginInfo)
+	r.POST("/post/setting/checkSetting", setting.UpdateStatusSetting)
 }

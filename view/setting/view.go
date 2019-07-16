@@ -10,18 +10,16 @@ import (
 )
 
 func Html(c *gin.Context) {
-	subData := getSetting(0) //订阅通知等
-	setData := getSetting(1) //基本设置等
+	data := getSetting() //订阅通知等
 	c.HTML(http.StatusOK, "setting.html", gin.H{
-		"subscribeList": subData,
-		"settingList":   setData,
+		"dataList": data,
 	})
 }
 
 /*获取配置*/
-func getSetting(settingType int) []map[string]interface{} {
-	sql := "select id,type,info,setting_name,setting_dis,update_time,status from coot_setting where setting_type=?"
-	result := dbUtil.Query(sql, settingType)
+func getSetting() []map[string]interface{} {
+	sql := "select id,type,info,setting_name,setting_dis,update_time,status from coot_setting"
+	result := dbUtil.Query(sql)
 	return result
 }
 
@@ -61,6 +59,19 @@ func UpdateLoginInfo(c *gin.Context) {
 			update_time = ?
 		where id = ?;`
 	dbUtil.Update(sql, info, 1, time.Now().Format("2006-01-02 15:04"), id)
+	c.JSON(http.StatusOK, error.ErrSuccessNull())
+}
+
+/*更新设置状态*/
+func UpdateStatusSetting(c *gin.Context) {
+	id := c.PostForm("id")
+	status := c.PostForm("status")
+	fmt.Println(id, status)
+	sql := `update coot_setting
+		set status = ?,
+			update_time=?
+		where id = ?`
+	dbUtil.Update(sql, status, time.Now().Format("2006-01-02 15:04"), id)
 	c.JSON(http.StatusOK, error.ErrSuccessNull())
 }
 

@@ -35,55 +35,25 @@
                     </tr>
                     </thead>
                     <tbody id="tableList">
-                    {{range $i, $e := .subscribeList}}
+                    {{range $i, $e := .dataList}}
                     <tr>
                         <td>{{$e.setting_name}} </td>
                         <td>{{$e.setting_dis}}</td>
                         <td>{{$e.update_time}}</td>
-                        <td><input type="checkbox" checked data-plugin="switchery" data-color="#039cfd" data-size="small"
+                        <td><input type="checkbox"  data-plugin="switchery" onchange="updateStatusFunc('{{$e.id}}',this)" data-color="#039cfd" data-size="small"
                         {{if eq $e.status 1}}
-                                   checked
+                               checked
                         {{end}}
                         />
                         </td>
-                        <td><button type="button" class="btn btn-primary  btn-sm" onclick="settingSubFunc('{{$e.id}}')"  data-toggle="modal" data-target="#myModal"><i class="fa fa-edit"></i> 配置</button></td>
+                        <td><button type="button" class="btn btn-primary  btn-sm" onclick="settingSubFunc('{{$e.id}}','{{$e.type}}')"  data-toggle="modal" ><i class="fa fa-edit"></i> 配置</button></td>
                     </tr>
                     {{end}}
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="col-sm-12">
-            <div class="card-box table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th width="15%">配置名称</th>
-                        <th>配置介绍</th>
-                        <th>配置时间</th>
-                        <th width="10%;">状态</th>
-                        <th width="6%">操作</th>
-                    </tr>
-                    </thead>
-                    <tbody id="tableList">
-                    {{range $i, $e := .settingList}}
-                    <tr>
-                        <td>{{$e.setting_name}} </td>
-                        <td>{{$e.setting_dis}}</td>
-                        <td>{{$e.update_time}}</td>
-                        <td><input type="checkbox" checked data-plugin="switchery" data-color="#039cfd" data-size="small"
-                        {{if eq $e.status 1}}
-                                   checked
-                        {{end}}
-                        />
-                        </td>
-                        <td><button type="button" class="btn btn-primary btn-sm"  onclick="settingSubFunc('{{$e.id}}')"   data-toggle="modal" data-target="#settingLoginModal"><i class="fa fa-edit"></i> 配置</button></td>
-                    </tr>
-                    {{end}}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+
     </div>
 </div>
 
@@ -150,9 +120,18 @@
 <script>
 
 
-    function settingSubFunc(id) {
+    function settingSubFunc(id,type) {
         $("#settingId").val(id)
-        console.log(id)
+        switch (type) {
+            case "mail":
+                $('#myModal').modal('show')
+                break
+            case "login":
+                $('#settingLoginModal').modal('show')
+                break
+            default:
+                break
+        }
     }
     function updateEmailPost () {
         var parms= {
@@ -169,13 +148,14 @@
             data:parms,
         }).success(function(message) {
             $('#myModal').modal('hide')
+
             console.log(message)
         }).fail(function(err){
             console.log(err)
         })
     }
     function addLoginPost () {
-        var parms= {
+        var params= {
             loginName:$("#loginName").val(),
             loginPwd:$("#loginPwd").val(),
             id:$("#settingId").val()
@@ -183,7 +163,24 @@
         $.ajax({
             type: "post",
             url: "/post/setting/login",
-            data: parms,
+            data: params,
+        }).success(function(message) {
+            $('#settingLoginModal').modal('hide')
+            console.log(message)
+        }).fail(function(err){
+            console.log(err)
+        })
+    }
+
+    function updateStatusFunc(id,ele) {
+        var params = {
+            id,
+            status:$(ele).is(":checked")?1:0
+        }
+        $.ajax({
+            type: "post",
+            url: "/post/setting/checkSetting",
+            data: params,
         }).success(function(message) {
             $('#settingLoginModal').modal('hide')
             console.log(message)
