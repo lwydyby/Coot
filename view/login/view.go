@@ -2,6 +2,8 @@ package login
 
 import (
 	"Coot/core/dbUtil"
+	"Coot/error"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -47,9 +49,10 @@ func Login(c *gin.Context) {
 	info := result[0]["info"].(string)
 	infoArr := strings.Split(info, "&&")
 	if loginName == infoArr[0] && loginPwd == infoArr[1] {
-		c.Set("userToken", infoArr[0])
-		c.Redirect(http.StatusOK, "/task")
+		c.SetCookie("user-token", infoArr[0], 60*5, "/", "localhost", false, true)
+		fmt.Println(infoArr)
+		c.JSON(http.StatusOK, error.ErrSuccessNull())
 		return
 	}
-	c.JSON(http.StatusOK, "")
+	c.JSON(http.StatusOK, error.ErrSuccessCustom(10001, nil))
 }

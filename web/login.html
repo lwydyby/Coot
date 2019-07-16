@@ -68,8 +68,10 @@
             type: "post",
             url: "/login",
             data: params,
-        }).success(function(message) {
-            console.log(message)
+        }).success(function(data) {
+            if(data.code==200){
+                location.replace("/task")
+            }
         }).fail(function(err){
             console.log(err)
         })

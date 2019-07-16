@@ -1,6 +1,7 @@
 package view
 
 import (
+	"Coot/error"
 	"Coot/view/dashboard"
 	"Coot/view/login"
 	"Coot/view/plug"
@@ -8,26 +9,31 @@ import (
 	"Coot/view/task"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func middleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		token, err := c.Get("userToken")
-		fmt.Println(token, err)
+		tokenStr, err := c.Cookie("user-token")
+		fmt.Println(tokenStr, err)
 		fmt.Println("111")
+		if err != nil {
+			c.JSON(http.StatusUnauthorized, error.ErrSuccessCustom(10002, nil))
+			c.Abort()
+			return
+		}
 		c.Next()
 	}
 }
 func LoadUrl(r *gin.Engine) {
+	r.GET("/login", login.Html)
+	r.POST("/login", login.Login)
 	r.Use(middleware())
 	// 仪表盘
 	r.GET("/", dashboard.Html)
-	r.GET("/login", login.Html)
 	r.GET("/dashboard", dashboard.Html)
 	//r.GET("/dashboard/get/data", dashboard.Get)
 
-	//
-	r.POST("/login", login.Login)
 	// 任务
 	r.GET("/task", task.Html)
 	r.GET("/task/add", task.HtmlAdd)
