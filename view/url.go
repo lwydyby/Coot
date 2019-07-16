@@ -14,9 +14,12 @@ import (
 
 func middleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		tokenStr, err := c.Cookie("user-token")
+		if c.Request.URL.Path == "/favicon.ico" {
+			c.Next()
+			return
+		}
+		tokenStr, err := c.Cookie("userToken")
 		fmt.Println(tokenStr, err)
-		fmt.Println("111")
 		if err != nil {
 			c.JSON(http.StatusUnauthorized, error.ErrSuccessCustom(10002, nil))
 			c.Abort()

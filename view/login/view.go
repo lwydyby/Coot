@@ -49,7 +49,7 @@ func Login(c *gin.Context) {
 	info := result[0]["info"].(string)
 	infoArr := strings.Split(info, "&&")
 	if loginName == infoArr[0] && loginPwd == infoArr[1] {
-		c.SetCookie("user-token", infoArr[0], 60*5, "/", "localhost", false, true)
+		c.SetCookie("userToken", infoArr[0], 60*5, "/", "localhost", false, true)
 		fmt.Println(infoArr)
 		c.JSON(http.StatusOK, error.ErrSuccessNull())
 		return
