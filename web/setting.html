@@ -171,11 +171,10 @@
             port:$("#port").val(),
             id:$("#settingId").val()
         }
-        console.log(parms)
         $.ajax({
             type: "post",
             url: "/post/setting/update",
-            data:parms,
+            data:params,
         }).success(function(result) {
             if(result.code==200){
                 $("#checkbox-"+params.id).click()
