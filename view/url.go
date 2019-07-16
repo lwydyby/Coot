@@ -1,7 +1,6 @@
 package view
 
 import (
-	"Coot/error"
 	"Coot/view/dashboard"
 	"Coot/view/login"
 	"Coot/view/plug"
@@ -21,7 +20,7 @@ func middleware() gin.HandlerFunc {
 		tokenStr, err := c.Cookie("userToken")
 		fmt.Println(tokenStr, err)
 		if err != nil {
-			c.JSON(http.StatusUnauthorized, error.ErrSuccessCustom(10002, "success", nil))
+			c.JSON(http.StatusUnauthorized, gin.H{"code": 10002, "msg": "success", "data": nil})
 			c.Abort()
 			return
 		}

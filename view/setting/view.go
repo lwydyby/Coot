@@ -85,7 +85,7 @@ func UpdateStatusSetting(c *gin.Context) {
 	id := c.PostForm("id")
 	status := c.PostForm("status")
 	if !checkInfo(id) && status == "1" {
-		c.JSON(http.StatusOK, error.ErrSuccessCustom(10003, "请配置后在启用", nil))
+		c.JSON(http.StatusOK, gin.H{"code": 10003, "msg": "请配置后在启用", "data": nil})
 		return
 	}
 	sql := `update coot_setting

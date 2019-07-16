@@ -12,13 +12,6 @@ func Check(e error, tips string) {
 	}
 }
 
-func ErrSuccessNull() map[string]interface{} {
-	return gin.H{
-		"code": 200,
-		"msg":  "success",
-	}
-}
-
 func ErrSuccess(data []map[string]interface{}) map[string]interface{} {
 	return gin.H{
 		"code": 200,
@@ -26,25 +19,23 @@ func ErrSuccess(data []map[string]interface{}) map[string]interface{} {
 		"data": data,
 	}
 }
-
-func ErrFailFileType() map[string]interface{} {
-	return gin.H{
-		"code": 1001,
-		"msg":  "异常文件格式",
-	}
-}
-
-func ErrLoginFail() map[string]interface{} {
-	return gin.H{
-		"code": 1002,
-		"msg":  "账号密码不正确",
-	}
-}
-
 func ErrSuccessCustom(code int, msg string, data []map[string]interface{}) map[string]interface{} {
 	return gin.H{
 		"code": code,
 		"msg":  msg,
 		"data": data,
+	}
+}
+func ErrSuccessNull() map[string]interface{} {
+	return gin.H{
+		"code": 200,
+		"msg":  "success",
+	}
+}
+
+func ErrFailFileType() map[string]interface{} {
+	return gin.H{
+		"code": 101,
+		"msg":  "异常文件格式",
 	}
 }
