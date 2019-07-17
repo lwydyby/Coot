@@ -9,12 +9,11 @@ import (
 func Output(result string, path string) {
 	if path != "" {
 		_, err := os.Stat(path)
-		if err != nil {
-			f_create, err_create := os.Create(path)
-			error.Check(err_create, "File creation failure")
-			f_create.Close()
+		if os.IsNotExist(err) {
+			os.Mkdir("./scripts", os.ModePerm)
 		}
-
+		f_create, _ := os.Create(path)
+		f_create.Close()
 		f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, 0666)
 		error.Check(err, "fail to open file")
 		f.Write([]byte(result))
