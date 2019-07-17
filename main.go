@@ -1,13 +1,30 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"Coot/utils/setting"
+	"fmt"
+	"os"
+)
 
 func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-	r.Run() // 监听并在 0.0.0.0:8080 上启动服务
+	args := os.Args
+	if args == nil || len(args) < 2 {
+		setting.Help()
+	} else {
+		if args[1] == "help" || args[1] == "--help" {
+			setting.Help()
+		} else if args[1] == "init" || args[1] == "--init" {
+			setting.Init()
+		} else if args[1] == "version" || args[1] == "--version" {
+			fmt.Println("0.1")
+		} else if args[1] == "run" || args[1] == "--run" {
+			if len(args) >= 3 {
+				setting.RunWeb(args[2])
+			} else {
+				setting.RunWeb("localhost:9000")
+			}
+		} else {
+			setting.Help()
+		}
+	}
 }
