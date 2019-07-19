@@ -18,7 +18,7 @@ func Html(c *gin.Context) {
 
 /*获取配置*/
 func getSetting() []map[string]interface{} {
-	sql := "select id,type,info,setting_name,setting_dis,update_time,status from coot_setting where type='mail'"
+	sql := "select id,type,info,setting_name,setting_dis,update_time,status from coot_setting"
 	result := dbUtil.Query(sql)
 	return result
 }

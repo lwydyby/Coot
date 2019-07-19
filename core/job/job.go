@@ -59,18 +59,15 @@ func execute(t *Task) {
 	}
 
 	// 开始执行任务
-	exeResult := "开始执行"
-
-	fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+" "+exeResult+" id:"+id+" 任务名称:"+t.Name+" 执行命令:"+cmd)
+	fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+" 开始执行 id:"+id+" 任务名称:"+t.Name+" 执行命令:"+cmd)
 	result, err := exec.Execute(cmd)
 
 	if err != nil {
-		exeResult = "执行失败"
+		fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+" 执行失败 id:"+id+" 任务名称:"+t.Name+" 脚本结果:",err)
 	} else {
-		exeResult = "执行完成"
+		fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+" 执行成功 id:"+id+" 任务名称:"+t.Name+" 脚本结果:"+result)
 	}
 
-	fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+" "+exeResult+" id:"+id+" 任务名称:"+t.Name+" 脚本结果:"+result)
 
 	// 判断是否开启邮箱通知
 	if t.AlertType == "mail" {

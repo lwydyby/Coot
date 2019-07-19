@@ -12,7 +12,7 @@
 
 
 <body>
-<div class="account-pages"></div>
+<div class="account-pages" style="background-color: whitesmoke"></div>
 <div class="clearfix"></div>
 <div class="wrapper-page">
 
@@ -73,7 +73,7 @@
             },
             success: function (e) {
                 if (e.code == 200) {
-                    window.location.href = "/dashboard";
+                    window.location.href = "/task";
                 } else {
                     swal("登录失败", e.msg, 'error');
                 }

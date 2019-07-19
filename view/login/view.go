@@ -3,6 +3,7 @@ package login
 import (
 	"Coot/core/dbUtil"
 	"Coot/error"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -10,33 +11,37 @@ import (
 )
 
 func findLoginStatus() string {
-	sql := `select status from coot_setting where type="login";`
+	sql := `select status,info from coot_setting where type="login";`
 	result := dbUtil.Query(sql)
 
 	status := strconv.FormatInt(result[0]["status"].(int64), 10)
-
-	return status
+	info:=result[0]["info"].(string)
+	infoArr:=strings.Split(info,"&&")
+	return status+"&&"+infoArr[0]
 }
 
 func Html(c *gin.Context) {
 
-	status := findLoginStatus()
-
-	if status == "1" {
+	loginInfo := findLoginStatus()
+	loginArr:=strings.Split(loginInfo,"&&")
+	if loginArr[0] == "1"{
 		c.HTML(http.StatusOK, "login.html", gin.H{})
 	} else {
-		c.Redirect(http.StatusMovedPermanently, "/dashboard")
+		c.Redirect(http.StatusMovedPermanently, "/task")
 	}
 }
 
 func Jump(c *gin.Context) {
-
-	status := findLoginStatus()
-
-	if status == "1" {
+	loginInfo := findLoginStatus()
+	loginArr:=strings.Split(loginInfo,"&&")
+	loginCookie,_:=c.Cookie("is_login")
+	fmt.Println(loginCookie,"是否登录")
+	if loginArr[0] == "1"&&loginArr[1]!=loginCookie {
 		c.Redirect(http.StatusMovedPermanently, "/login")
-	} else {
-		c.Redirect(http.StatusMovedPermanently, "/dashboard")
+		c.Abort()
+		return
+	}else{
+		c.Next()
 	}
 }
 
@@ -52,19 +57,9 @@ func Login(c *gin.Context) {
 	infoArr := strings.Split(info, "&&")
 
 	if loginName == infoArr[0] && loginPwd == infoArr[1] {
-
-		cookie := &http.Cookie{
-			Name:     "is_login",
-			Value:    infoArr[0],
-			Path:     "/",
-			HttpOnly: true,
-		}
-
-		http.SetCookie(c.Writer, cookie)
-
+		c.SetCookie("is_login",infoArr[0] ,60*60*24, "/", "127.0.0.1", false, true)
 		c.JSON(http.StatusOK, error.ErrSuccessNull())
 		return
 	}
-
 	c.JSON(http.StatusOK, error.ErrLoginFail())
 }
