@@ -27,7 +27,7 @@ func Html(c *gin.Context) {
 	if loginArr[0] == "1"{
 		c.HTML(http.StatusOK, "login.html", gin.H{})
 	} else {
-		c.Redirect(http.StatusMovedPermanently, "/task")
+		c.Redirect(http.StatusFound, "/task")
 	}
 }
 
@@ -37,7 +37,7 @@ func Jump(c *gin.Context) {
 	loginCookie,_:=c.Cookie("is_login")
 	fmt.Println(loginCookie,"是否登录")
 	if loginArr[0] == "1"&&loginArr[1]!=loginCookie {
-		c.Redirect(http.StatusMovedPermanently, "/login")
+		c.Redirect(http.StatusFound, "/login")
 		c.Abort()
 		return
 	}else{
