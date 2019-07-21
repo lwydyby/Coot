@@ -16,6 +16,10 @@ import (
 func Html(c *gin.Context) {
 	c.HTML(http.StatusOK, "task.html", gin.H{})
 }
+// Task详情 页面
+func HtmlDetail(c *gin.Context) {
+	c.HTML(http.StatusOK, "taskDetail.html", gin.H{})
+}
 
 // 查询任务列表
 func GetTaskList(c *gin.Context) {

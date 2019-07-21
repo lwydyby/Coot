@@ -18,6 +18,7 @@ func LoadUrl(r *gin.Engine) {
 
 	// 任务
 	r.GET("/task",login.Jump, task.Html)
+	r.GET("/task/detail",login.Jump, task.HtmlDetail)
 	r.GET("/task/add",login.Jump, task.HtmlAdd)
 	r.GET("/get/task/list",login.Jump, task.GetTaskList)
 	r.POST("/post/task/add",login.Jump, task.PostTaskAdd)
