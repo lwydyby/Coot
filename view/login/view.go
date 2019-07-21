@@ -3,7 +3,6 @@ package login
 import (
 	"Coot/core/dbUtil"
 	"Coot/error"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -35,7 +34,6 @@ func Jump(c *gin.Context) {
 	loginInfo := findLoginStatus()
 	loginArr:=strings.Split(loginInfo,"&&")
 	loginCookie,_:=c.Cookie("is_login")
-	fmt.Println(loginCookie,"是否登录")
 	if loginArr[0] == "1"&&loginArr[1]!=loginCookie {
 		c.Redirect(http.StatusFound, "/login")
 		c.Abort()
