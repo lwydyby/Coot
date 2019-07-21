@@ -37,6 +37,12 @@ func checkInfo(id string) bool {
 	if num == 2 && typeStr == "login" {
 		return true
 	}
+	if num == 2 && typeStr=="alterOver"{
+		return  true
+	}
+	if num == 1&& typeStr=="pushBullet"{
+		return  true
+	}
 	return false
 }
 
@@ -81,6 +87,7 @@ func UpdateLoginInfo(c *gin.Context) {
 func UpdateStatusSetting(c *gin.Context) {
 	id := c.PostForm("id")
 	status := c.PostForm("status")
+
 	if !checkInfo(id) && status == "1" {
 		c.JSON(http.StatusOK, gin.H{"code": 10003, "msg": "请配置后在启用", "data": nil})
 		return

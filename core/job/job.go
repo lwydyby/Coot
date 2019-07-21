@@ -66,8 +66,13 @@ func execute(t *Task) {
 		fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+" 执行失败 id:"+id+" 任务名称:"+t.Name+" 脚本结果:",err)
 	} else {
 		fmt.Fprintln(gin.DefaultWriter, time.Now().Format("2006-01-02 15:04:05")+" 执行成功 id:"+id+" 任务名称:"+t.Name+" 脚本结果:"+result)
+		//执行通知
+		go notice(t,result)
 	}
-
+	// 更新任务执行时间
+	updateExecTime(id)
+}
+func notice(t *Task,result string){
 
 	// 判断是否开启邮箱通知
 	if t.AlertType == "mail" {
@@ -87,9 +92,38 @@ func execute(t *Task) {
 			}
 		}
 	}
+	if t.AlertType == "alterOver"{
+		sql := `select status,info from coot_setting where type="alterOver";`
+		isAlertStatus := dbUtil.Query(sql)
 
-	// 更新任务执行时间
-	updateExecTime(id)
+		status := strconv.FormatInt(isAlertStatus[0]["status"].(int64), 10)
+
+		// 判断总开关是否开启
+		if status == "1" {
+			r := strings.Split(result, "&&")
+
+			// 判断脚本 code 是否 为 0
+			if r[0] == "0" {
+				send.SendAlterOver(isAlertStatus,"Coot["+t.Name+"]提醒你",r[1])
+			}
+		}
+	}
+	if t.AlertType == "pushBullet"{
+		sql := `select status,info from coot_setting where type="pushBullet";`
+		isAlertStatus := dbUtil.Query(sql)
+
+		status := strconv.FormatInt(isAlertStatus[0]["status"].(int64), 10)
+
+		// 判断总开关是否开启
+		if status == "1" {
+			r := strings.Split(result, "&&")
+
+			// 判断脚本 code 是否 为 0
+			if r[0] == "0" {
+				send.SendPushBullet(isAlertStatus,"Coot["+t.Name+"]提醒你",r[1])
+			}
+		}
+	}
 }
 
 func mTask(t *Task, typs string) string {

@@ -1,16 +1,15 @@
-[GIN] 2019/07/21 - 10:21:17 | 200 |    2.099894ms |       127.0.0.1 | GET      /task
-[GIN] 2019/07/21 - 10:21:17 | 200 |    1.604911ms |       127.0.0.1 | GET      /get/task/list
-[GIN] 2019/07/21 - 10:21:17 | 200 |    5.859637ms |       127.0.0.1 | GET      /static/favicon.ico
-[GIN] 2019/07/21 - 10:21:22 | 404 |       1.217µs |       127.0.0.1 | GET      /taskDetail
-[GIN] 2019/07/21 - 10:21:22 | 404 |       1.293µs |       127.0.0.1 | GET      /favicon.ico
-[GIN] 2019/07/21 - 10:21:31 | 200 |    4.496984ms |       127.0.0.1 | GET      /task/detail
-[GIN] 2019/07/21 - 10:21:31 | 200 |     562.177µs |       127.0.0.1 | GET      /static/libs/codes/lib/codemirror.css
-[GIN] 2019/07/21 - 10:21:31 | 200 |     538.834µs |       127.0.0.1 | GET      /static/libs/codes/theme/monokai.css
-[GIN] 2019/07/21 - 10:21:31 | 200 |     593.606µs |       127.0.0.1 | GET      /static/libs/clockpicker/bootstrap-clockpicker.min.css
-[GIN] 2019/07/21 - 10:21:31 | 200 |    2.512227ms |       127.0.0.1 | GET      /static/libs/codes/lib/codemirror.js
-[GIN] 2019/07/21 - 10:21:31 | 200 |     650.515µs |       127.0.0.1 | GET      /static/libs/codes/mode/shell/shell.js
-[GIN] 2019/07/21 - 10:21:31 | 200 |      686.97µs |       127.0.0.1 | GET      /static/libs/codes/mode/python/python.js
-[GIN] 2019/07/21 - 10:21:31 | 200 |     418.454µs |       127.0.0.1 | GET      /static/libs/codes/keymap/sublime.js
-[GIN] 2019/07/21 - 10:21:31 | 200 |      809.05µs |       127.0.0.1 | GET      /static/libs/bootstrap-inputmask/bootstrap-inputmask.min.js
-[GIN] 2019/07/21 - 10:21:31 | 200 |    1.005855ms |       127.0.0.1 | GET      /static/libs/clockpicker/bootstrap-clockpicker.js
-[GIN] 2019/07/21 - 10:21:31 | 200 |    2.798124ms |       127.0.0.1 | GET      /static/images/xy.png
+[GIN] 2019/07/21 - 21:46:45 | 200 |    2.712563ms |       127.0.0.1 | GET      /task
+[GIN] 2019/07/21 - 21:46:45 | 200 |    1.954022ms |       127.0.0.1 | GET      /get/task/list
+[GIN] 2019/07/21 - 21:46:45 | 200 |    7.271659ms |       127.0.0.1 | GET      /static/favicon.ico
+[GIN] 2019/07/21 - 21:46:46 | 200 |    8.621156ms |       127.0.0.1 | POST     /task/start
+[GIN] 2019/07/21 - 21:46:46 | 200 |    3.360245ms |       127.0.0.1 | GET      /task
+[GIN] 2019/07/21 - 21:46:46 | 200 |    1.064828ms |       127.0.0.1 | GET      /get/task/list
+2019-07-21 21:46:48 开始执行 id:37 任务名称:上班提醒 执行命令:sh ./scripts/ae97e977920cb03b37208ac9ac8ddd77.sh
+2019-07-21 21:46:48 执行成功 id:37 任务名称:上班提醒 脚本结果:0&&该上班了！
+
+2019-07-21 21:46:50 开始执行 id:37 任务名称:上班提醒 执行命令:sh ./scripts/ae97e977920cb03b37208ac9ac8ddd77.sh
+2019-07-21 21:46:50 执行成功 id:37 任务名称:上班提醒 脚本结果:0&&该上班了！
+
+[GIN] 2019/07/21 - 21:46:52 | 200 |    3.900204ms |       127.0.0.1 | POST     /task/stop
+[GIN] 2019/07/21 - 21:46:52 | 200 |    4.485928ms |       127.0.0.1 | GET      /task
+[GIN] 2019/07/21 - 21:46:52 | 200 |    1.138182ms |       127.0.0.1 | GET      /get/task/list

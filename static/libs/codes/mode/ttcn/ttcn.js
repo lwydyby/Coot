@@ -266,7 +266,7 @@
     " hexstring integer objid octetstring universal verdicttype timer"),
     timerOps: words("read running start stop timeout"),
     portOps: words("call catch check clear getcall getreply halt raise receive" +
-    " reply send trigger"),
+    " reply queue trigger"),
     configOps: words("create connect disconnect done kill killed map unmap"),
     verdictOps: words("getverdict setverdict"),
     sutOps: words("action"),
