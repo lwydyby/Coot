@@ -26,7 +26,7 @@ func Html(c *gin.Context) {
 	if loginArr[0] == "1"{
 		c.HTML(http.StatusOK, "login.html", gin.H{})
 	} else {
-		c.Redirect(http.StatusFound, "/task")
+		c.Redirect(http.StatusFound, "/dashboard")
 	}
 }
 
@@ -55,7 +55,7 @@ func Login(c *gin.Context) {
 	infoArr := strings.Split(info, "&&")
 
 	if loginName == infoArr[0] && loginPwd == infoArr[1] {
-		c.SetCookie("is_login",infoArr[0] ,60*60*24, "/", "127.0.0.1", false, true)
+		c.SetCookie("is_login",infoArr[0] ,60*60*24, "/", "*", false, true)
 		c.JSON(http.StatusOK, error.ErrSuccessNull())
 		return
 	}
