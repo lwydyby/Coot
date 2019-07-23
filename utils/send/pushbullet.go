@@ -4,7 +4,6 @@ import (
 	"Coot/error"
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strings"
 )
@@ -12,7 +11,6 @@ import (
 /*发送pushBullet推送*/
 func SendPushBullet(findAlterConfig []map[string]interface{},args ...string)interface{}{
 	infoArr:=strings.Split(findAlterConfig[0]["info"].(string),"&&")
-	fmt.Println(infoArr[0],args[0],args[1])
 	var req *http.Request
 	body:= map[string]string{
 		"title":args[0],

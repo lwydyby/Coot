@@ -40,10 +40,22 @@ func checkInfo(id string) bool {
 	if num == 2 && typeStr=="alterOver"{
 		return  true
 	}
-	if num == 1&& typeStr=="pushBullet"{
+	if num == 1 && typeStr=="pushBullet"{
 		return  true
 	}
 	return false
+}
+func joinInfo(args ...string)string{
+	and :="&&"
+	info:=""
+	for _,value := range args {
+		if value==""{
+			return ""
+		}
+			info+=value+and
+	}
+	info=info[:len(info)-2]
+	return  info
 }
 
 /*更新邮件通知*/
@@ -54,8 +66,7 @@ func UpdateEmailInfo(c *gin.Context) {
 	host := c.PostForm("host")
 	port := c.PostForm("port")
 	//subType := c.PostForm("type")
-	and := "&&"
-	info := host + and + port + and + email + and + pass
+	info := joinInfo(host,port,email,pass)
 	sql := `
 		UPDATE  coot_setting 
 		set	info = ?,
@@ -71,8 +82,7 @@ func UpdateLoginInfo(c *gin.Context) {
 	loginName := c.PostForm("loginName")
 	loginPwd := c.PostForm("loginPwd")
 	id := c.PostForm("id")
-	and := "&&"
-	info := loginName + and + loginPwd
+	info := joinInfo(loginName,loginPwd)
 	sql := `
 		UPDATE  coot_setting 
 		set	info = ?,
@@ -82,7 +92,35 @@ func UpdateLoginInfo(c *gin.Context) {
 	dbUtil.Update(sql, info, 0, time.Now().Format("2006-01-02 15:04"), id)
 	c.JSON(http.StatusOK, error.ErrSuccessNull())
 }
-
+/*更新alterOver推送配置*/
+func UpdateAlterOverInfo(c *gin.Context){
+	alterSource := c.PostForm("alterSource")
+	alterReceiver := c.PostForm("alterReceiver")
+	id := c.PostForm("id")
+	info := joinInfo(alterSource,alterReceiver)
+	sql := `
+		UPDATE  coot_setting 
+		set	info = ?,
+			status = ?,
+			update_time = ?
+		where id = ?;`
+	dbUtil.Update(sql, info, 0, time.Now().Format("2006-01-02 15:04"), id)
+	c.JSON(http.StatusOK, error.ErrSuccessNull())
+}
+/*更新pushBullet推送配置*/
+func UpdatePushBulletInfo(c *gin.Context){
+	pushBulletToken := c.PostForm("pushBulletToken")
+	id := c.PostForm("id")
+	info := joinInfo(pushBulletToken)
+	sql := `
+		UPDATE  coot_setting 
+		set	info = ?,
+			status = ?,
+			update_time = ?
+		where id = ?;`
+	dbUtil.Update(sql, info, 0, time.Now().Format("2006-01-02 15:04"), id)
+	c.JSON(http.StatusOK, error.ErrSuccessNull())
+}
 /*更新设置状态*/
 func UpdateStatusSetting(c *gin.Context) {
 	id := c.PostForm("id")
