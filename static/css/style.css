@@ -5388,7 +5388,9 @@ File: Menu
   padding: 0 12px !important; }
   .nav-user img {
     height: 36px;
-    width: 36px; }
+    width: 36px;
+    border-radius: 100%;
+    border: 2px solid #000;}
 
 /* Right sidebar */
 .side-bar.right-bar {

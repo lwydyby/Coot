@@ -4,30 +4,28 @@ import (
 	"Coot/error"
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strings"
 )
 
 /*发送pushBullet推送*/
-func SendPushBullet(findAlterConfig []map[string]interface{},args ...string)interface{}{
-	infoArr:=strings.Split(findAlterConfig[0]["info"].(string),"&&")
-	fmt.Println(infoArr[0],args[0],args[1])
+func SendPushBullet(findAlertConfig []map[string]interface{}, args ...string) interface{} {
+	infoArr := strings.Split(findAlertConfig[0]["info"].(string), "&&")
 	var req *http.Request
-	body:= map[string]string{
-		"title":args[0],
-		"body":args[1],
-		"type":"note",  //默认消息类型
+	body := map[string]string{
+		"title": args[0],
+		"body":  args[1],
+		"type":  "note", //默认消息类型
 	}
-	headers:=map[string]string{
-		"Access-Token":infoArr[0],
-		"Content-Type":"application/json",
+	headers := map[string]string{
+		"Access-Token": infoArr[0],
+		"Content-Type": "application/json",
 	}
-	url:="https://api.pushbullet.com/v2/pushes"
+	url := "https://api.pushbullet.com/v2/pushes"
 	bodyJson, _ := json.Marshal(body)
-	req,err:= http.NewRequest("POST", url, bytes.NewBuffer(bodyJson))
-	if err!=nil{
-		error.Check(err,"发送pushBullet创建req报错")
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(bodyJson))
+	if err != nil {
+		error.Check(err, "发送pushBullet创建req报错")
 	}
 	//add headers
 	if headers != nil {
@@ -37,9 +35,9 @@ func SendPushBullet(findAlterConfig []map[string]interface{},args ...string)inte
 	}
 	//http client
 	client := &http.Client{}
-	result,err :=client.Do(req)
-	if err!=nil{
-		error.Check(err,"发送pushBullet返回resp报错")
+	result, err := client.Do(req)
+	if err != nil {
+		error.Check(err, "发送pushBullet返回resp报错")
 	}
 	return result
 }

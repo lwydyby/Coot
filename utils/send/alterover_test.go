@@ -5,6 +5,6 @@ import (
 )
 
 func TestRunner(t *testing.T){
-	//SendAlterOver("测试标题","测试内容")
+	//SendAlertOver("测试标题","测试内容")
 	SendPushBullet(nil)
 }
