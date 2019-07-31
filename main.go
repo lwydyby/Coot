@@ -21,7 +21,7 @@ func main() {
 			if len(args) >= 3 {
 				setting.RunWeb(args[2])
 			} else {
-				setting.RunWeb("localhost:9001")
+				setting.RunWeb("localhost:9000")
 			}
 		} else {
 			setting.Help()

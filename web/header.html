@@ -10,7 +10,7 @@
     <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
     <link href="/static/libs/bootstrap-sweetalert/sweet-alert.css" rel="stylesheet" type="text/css"/>
     <link href="/static/libs/switchery/switchery.min.css" rel="stylesheet"/>
-    <link href="/static/libs/bootstrap-tagsinput/css/bootstrap-tagsinput.css" rel="stylesheet" />
+    <link href="/static/libs/bootstrap-tagsinput/css/bootstrap-tagsinput.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -50,6 +50,29 @@
                             <i class="zmdi zmdi-format-subject noti-icon"></i>
                         </a>
                     </li>
+                    <li class="nav-item dropdown notification-list">
+                        <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light nav-user"
+                           data-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
+                            <img src="/static/images/avatar.jpg" alt="user" class="img-circle">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-arrow profile-dropdown "
+                             aria-labelledby="Preview">
+                            <!-- item-->
+                            <div class="dropdown-item noti-title">
+                                <h5 class="text-overflow">
+                                    <small>Welcome ! You</small>
+                                </h5>
+                            </div>
+
+                            <!-- item-->
+                            <a href="/logout" class="dropdown-item notify-item">
+                                <i class="zmdi zmdi-power"></i> <span>注销</span>
+                            </a>
+
+                        </div>
+                    </li>
+
                 </ul>
             </div> <!-- end menu-extras -->
             <div class="clearfix"></div>

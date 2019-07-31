@@ -74,7 +74,7 @@
 
                     for (var i = 0; i < data.length; i++) {
                         _h += '<tr>';
-                        _h += '    <th><span class="label label-primary">' + data[i].task_name + '</span></th>';
+                        _h += '    <th><a href="/task/detail?id=' + data[i].id + '"><span class="label label-primary">' + data[i].task_name + '</span></a></th>';
                         _h += '    <td class="cjs">' + data[i].task_explain + '</td>';
 
                         if (data[i].task_time_type == "1") {

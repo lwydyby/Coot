@@ -75,7 +75,7 @@ CodeMirror.defineMode("clojure", function (options) {
         "re-seq read read-line read-string realized? reduce reduce-kv reductions ref ref-history-count ref-max-history " +
         "ref-min-history ref-set refer refer-clojure reify release-pending-sends rem remove remove-all-methods " +
         "remove-method remove-ns remove-watch repeat repeatedly replace replicate require reset! reset-meta! resolve rest " +
-        "restart-agent resultset-seq reverse reversible? rseq rsubseq satisfies? second select-keys send send-off seq seq? " +
+        "restart-agent resultset-seq reverse reversible? rseq rsubseq satisfies? second select-keys queue queue-off seq seq? " +
         "seque sequence sequential? set set-error-handler! set-error-mode! set-validator! set? short short-array shorts " +
         "shuffle shutdown-agents slurp some some-fn sort sort-by sorted-map sorted-map-by sorted-set sorted-set-by sorted? " +
         "special-symbol? spit split-at split-with str string? struct struct-map subs subseq subvec supers swap! symbol " +
@@ -87,8 +87,8 @@ CodeMirror.defineMode("clojure", function (options) {
         "unquote-splicing update update-in update-proxy use val vals var-get var-set var? vary-meta vec vector vector-of " +
         "vector? volatile! volatile? vreset! vswap! when when-first when-let when-not while with-bindings with-bindings* with-in-str with-loading-context " +
         "with-local-vars with-meta with-open with-out-str with-precision with-redefs with-redefs-fn xml-seq zero? zipmap " +
-        "*default-data-reader-fn* as-> cond-> cond->> reduced reduced? send-via set-agent-send-executor! " +
-        "set-agent-send-off-executor! some-> some->>");
+        "*default-data-reader-fn* as-> cond-> cond->> reduced reduced? queue-via set-agent-queue-executor! " +
+        "set-agent-queue-off-executor! some-> some->>");
 
     var indentKeys = makeKeywords(
         // Built-ins

@@ -75,7 +75,7 @@
                     class="zmdi zmdi-help-outline"></i></span>
             </a>
         </div>
-        <h4 class="page-title">创建任务</h4>
+        <h4 class="page-title">修改任务</h4>
     </div>
 
     <div class="col-sm-12">
@@ -90,14 +90,16 @@
                     <label for="taskName" class="col-sm-3 form-control-label"><span class="text-danger">*</span>
                         任务名：</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="taskName" placeholder="请输入任务名称">
+                        <input type="text" class="form-control" id="taskName" placeholder="请输入任务名称"
+                               value="{{.taskName}}">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="taskExplain" class="col-sm-3 form-control-label"><span class="text-danger">*</span>
                         任务说明：</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="taskExplain" placeholder="请输入任务说明">
+                        <input type="text" class="form-control" id="taskExplain" placeholder="请输入任务说明"
+                               value="{{.taskExplain}}">
                     </div>
                 </div>
                 <hr>
@@ -105,6 +107,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3"><span class="text-danger">*</span> 周期选择：</label>
                     <div class="col-sm-9">
+                    {{if eq .taskTimeType "1" "2" "3"}}
                         <label class="c-input c-radio margin-r20">
                             <input name="taskTimeType" type="radio" value="1" checked="" onclick="switchTimeType(1)">
                             <span class="c-indicator"></span>
@@ -120,6 +123,40 @@
                             <span class="c-indicator"></span>
                             每月执行
                         </label>
+                    {{else if eq .taskTimeType "4"}}
+                        <label class="c-input c-radio margin-r20">
+                            <input name="taskTimeType" type="radio" value="1" onclick="switchTimeType(1)">
+                            <span class="c-indicator"></span>
+                            间隔执行
+                        </label>
+                        <label class="c-input c-radio margin-r20">
+                            <input name="taskTimeType" type="radio" value="4" checked="" onclick="switchTimeType(2)">
+                            <span class="c-indicator"></span>
+                            每天执行
+                        </label>
+                        <label class="c-input c-radio">
+                            <input name="taskTimeType" type="radio" value="5" onclick="switchTimeType(3)">
+                            <span class="c-indicator"></span>
+                            每月执行
+                        </label>
+                    {{else if eq .taskTimeType "5"}}
+                        <label class="c-input c-radio margin-r20">
+                            <input name="taskTimeType" type="radio" value="1" onclick="switchTimeType(1)">
+                            <span class="c-indicator"></span>
+                            间隔执行
+                        </label>
+                        <label class="c-input c-radio margin-r20">
+                            <input name="taskTimeType" type="radio" value="4" onclick="switchTimeType(2)">
+                            <span class="c-indicator"></span>
+                            每天执行
+                        </label>
+                        <label class="c-input c-radio">
+                            <input name="taskTimeType" type="radio" value="5" checked="" onclick="switchTimeType(3)">
+                            <span class="c-indicator"></span>
+                            每月执行
+                        </label>
+                    {{end}}
+
                     </div>
                 </div>
 
@@ -131,7 +168,7 @@
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="zmdi zmdi-time"></i></div>
                                 <input type="number" id="timeM" min="1" max="59" class="form-control"
-                                       placeholder="请输入执行间隔周期">
+                                       placeholder="请输入执行间隔周期" value="{{.taskTime}}">
                                 <div class="input-group-addon addzq">
                                     <select class="form-control selectzq" id="selectzq">
                                         <option value="1">秒</option>
@@ -149,7 +186,7 @@
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <span class="input-group-addon"> <span class="zmdi zmdi-alarm"></span> </span>
-                                <input class="form-control" id="timeD" value="" placeholder="请选择每天执行时间">
+                                <input class="form-control" id="timeD" placeholder="请选择每天执行时间">
                             </div>
                         </div>
                     </div>
@@ -169,9 +206,20 @@
                 </div>
                 <hr>
                 <h4 class="header-title m-t-0 m-b-30 title">通知设置</h4>
+
                 <div class="form-group row">
                     <label class="col-sm-3"><span class="text-danger">*</span> E-mail：</label>
                     <div class="col-sm-9">
+                    {{if eq .isAlertMail "1"}}
+                        <input type="checkbox" id="is_switch_mail" data-plugin="switchery"
+                               data-color="#039cfd"
+                               data-size="small"
+                               class="js-check-change-mail" checked>
+                        <div style="margin-top: 10px;" id="mailinput">
+                            <input type="text" id="mail_list" value="{{.alertRecMail}}" data-role="tagsinput"
+                                   placeholder="邮箱可添加多个"/>
+                        </div>
+                    {{else}}
                         <input type="checkbox" id="is_switch_mail" data-plugin="switchery"
                                data-color="#039cfd"
                                data-size="small"
@@ -179,26 +227,43 @@
                         <div style="margin-top: 10px;display: none;" id="mailinput">
                             <input type="text" id="mail_list" value="" data-role="tagsinput" placeholder="邮箱可添加多个"/>
                         </div>
+                    {{end}}
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-3"><span class="text-danger">*</span> Alertover：</label>
                     <div class="col-sm-9">
+                    {{if eq .isAlertAlertOver "1"}}
+                        <input type="checkbox" id="is_switch_alertover" data-plugin="switchery"
+                               data-color="#039cfd"
+                               data-size="small"
+                               class="js-check-change-alertover" checked>
+                    {{else}}
                         <input type="checkbox" id="is_switch_alertover" data-plugin="switchery"
                                data-color="#039cfd"
                                data-size="small"
                                class="js-check-change-alertover">
+                    {{end}}
+
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-3"><span class="text-danger">*</span> Pushbullet：</label>
                     <div class="col-sm-9">
+                    {{if eq .isAlertPushBullet "1"}}
+                        <input type="checkbox" id="is_switch_pushbullet" data-plugin="switchery"
+                               data-color="#039cfd"
+                               data-size="small"
+                               class="js-check-change-pushbullet" checked>
+                    {{else}}
                         <input type="checkbox" id="is_switch_pushbullet" data-plugin="switchery"
                                data-color="#039cfd"
                                data-size="small"
                                class="js-check-change-pushbullet">
+                    {{end}}
+
                     </div>
                 </div>
                 <hr>
@@ -206,6 +271,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3"><span class="text-danger">*</span> 脚本语言：</label>
                     <div class="col-sm-9">
+                    {{if eq .scriptType "Python"}}
                         <label class="c-input c-radio margin-r20">
                             <input name="taskLanuage" id="python" type="radio" value="Python" checked=""
                                    onclick="setLanuage('python')">
@@ -218,14 +284,28 @@
                             <span class="c-indicator"></span>
                             Shell
                         </label>
+                    {{else if eq .scriptType "Shell"}}
+                        <label class="c-input c-radio margin-r20">
+                            <input name="taskLanuage" id="python" type="radio" value="Python"
+                                   onclick="setLanuage('python')">
+                            <span class="c-indicator"></span>
+                            Python
+                        </label>
+                        <label class="c-input c-radio">
+                            <input name="taskLanuage" id="shell" type="radio" value="Shell" checked=""
+                                   onclick="setLanuage('shell')">
+                            <span class="c-indicator"></span>
+                            Shell
+                        </label>
+                    {{end}}
                     </div>
                 </div>
             </div>
             <div class="col-md-12">
-                <textarea id="code" name="code"></textarea>
+                <textarea id="code" name="code">{{.code}}</textarea>
             </div>
             <button type="button" class="btn btn-primary waves-effect waves-light"
-                    style="width: 100%;margin-top: 20px;" onclick="submit()">添加任务
+                    style="width: 100%;margin-top: 20px;" onclick="submit()">更新任务
             </button>
             <div class="clear"></div>
         </div>
@@ -240,12 +320,11 @@
 <script src="/static/libs/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
 <script>
 
-    var is_plug_script = 0;
     var is_alert = [];
 
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         lineNumbers: true,
-        mode: "python",
+        mode: "Python",
         lineWrapping: true,
         theme: "monokai",
         tabSize: 4,
@@ -265,45 +344,8 @@
         }
     }
 
-    var arr = getRequest();
-
-    if (typeof(arr) != 'undefined') {
-        if (typeof(arr.name) != 'undefined') {
-            is_plug_script = 1;
-            $("#taskName").val(decodeURIComponent(arr.name));
-        }
-
-        if (typeof(arr.explain) != 'undefined') {
-            $("#taskExplain").val(decodeURIComponent(arr.explain));
-        }
-
-        if (typeof(arr.language) != 'undefined') {
-            if (arr.language == "Python") {
-                $("#python").attr("checked", "true");
-            } else if (arr.language == "Shell") {
-                $("#shell").attr("checked", "true");
-            }
-
-            setLanuage(arr.language.toLowerCase());
-        }
-
-        if (typeof(arr.url) != 'undefined') {
-            $.ajax({
-                type: "GET",
-                url: arr.url,
-                success: function (e) {
-                    editor.setValue(e);
-                },
-                error: function (e) {
-                    swal("加载失败", "可能是网络问题或者脚本丢失", 'error');
-                }
-            });
-        }
-    }
-
-
     function setLanuage(lanuage) {
-        editor.setOption("mode", lanuage);
+        editor.setOption("mode", lanuage.toLowerCase());
     }
 
     $('#timeD').clockpicker({
@@ -358,6 +400,53 @@
         }
     };
 
+    var taskTimeType = "{{.taskTimeType}}";
+    var taskTime = "{{.taskTime}}";
+    var scriptType = "{{.scriptType}}";
+    var update_id = "{{.id}}";
+
+    if (taskTimeType == "1" || taskTimeType == "2" || taskTimeType == "3") {
+        $("#zqjg").show();
+        $("#zqd").hide();
+        $("#zqm").hide();
+
+        var a = document.getElementById("selectzq");
+        a.options[parseInt(taskTimeType) - 1].selected = true;
+    } else if (taskTimeType == "4") {
+        $("#zqjg").hide();
+        $("#zqd").show();
+        $("#zqm").hide();
+
+        var arr = taskTime.split(":");
+
+        $("#timeD").val(arr[0] + ":" + arr[1]);
+    } else if (taskTimeType == "5") {
+        $("#zqjg").hide();
+        $("#zqd").hide();
+        $("#zqm").show();
+
+        var arr = taskTime.split(":");
+        var barr = arr[0].split(" ");
+        var e = barr[0] + "号" + " " + barr[1] + "时:" + arr[1] + "分";
+
+        $("#timeY").val(e);
+    }
+
+    setLanuage(scriptType);
+
+
+    if (changeCheckboxMail.checked) {
+        is_alert.push("mail");
+    }
+
+    if (changeCheckboxAlertover.checked) {
+        is_alert.push("alertOver");
+    }
+
+    if (changeCheckboxPushbullet.checked) {
+        is_alert.push("pushBullet");
+    }
+
     function switchTimeType(switchType) {
         if (switchType == 1) {
             $("#zqjg").show();
@@ -403,10 +492,10 @@
 
         $.ajax({
             type: "POST",
-            url: "/post/task/add",
+            url: "/post/task/update",
             dataType: "json",
             data: {
-                "is_plug_script": is_plug_script,
+                "id": update_id,
                 "taskName": taskName,
                 "taskExplain": taskExplain,
                 "taskTimeType": taskTimeType,
@@ -418,16 +507,13 @@
             },
             success: function (e) {
                 if (e.code == 200) {
-                    swal("success", "创建成功!", "success");
-                    setTimeout(function () {
-                        window.location.href = "/task";
-                    }, 2000);
+                    swal("success", "更新成功!", "success");
                 } else {
-                    swal("添加失败", e.msg, 'error');
+                    swal("更新失败", e.msg, 'error');
                 }
             },
             error: function (e) {
-                swal("添加失败", "请 Github 提交 Issues", 'error');
+                swal("更新失败", "请 Github 提交 Issues", 'error');
             }
         });
     }

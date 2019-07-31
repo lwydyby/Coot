@@ -342,7 +342,7 @@ CodeMirror.defineMode("perl",function(){
                 ioctl                           :1,     // - system-dependent device control system call
                 'join'                          :1,     // - join a list into a string using a separator
                 keys                            :1,     // - retrieve list of indices from a hash
-                kill                            :1,     // - send a signal to a process or process group
+                kill                            :1,     // - queue a signal to a process or process group
                 last                            :1,     // - exit a block prematurely
                 lc                              :1,     // - return lower-case version of a string
                 lcfirst                         :1,     // - return a string with just the next letter in lower case
@@ -360,7 +360,7 @@ CodeMirror.defineMode("perl",function(){
                 msgctl                          :1,     // - SysV IPC message control operations
                 msgget                          :1,     // - get SysV IPC message queue
                 msgrcv                          :1,     // - receive a SysV IPC message from a message queue
-                msgsnd                          :1,     // - send a SysV IPC message to a message queue
+                msgsnd                          :1,     // - queue a SysV IPC message to a message queue
                 my                              : 2,    // - declare and assign a local variable (lexical scoping)
                 'new'                           :1,     //
                 next                            :1,     // - iterate a block prematurely
@@ -411,7 +411,7 @@ CodeMirror.defineMode("perl",function(){
                 semctl                          :1,     // - SysV semaphore control operations
                 semget                          :1,     // - get set of SysV semaphores
                 semop                           :1,     // - SysV semaphore operations
-                send                            :1,     // - send a message over a socket
+                send                            :1,     // - queue a message over a socket
                 setgrent                        :1,     // - prepare group file for use
                 sethostent                      :1,     // - prepare hosts file for use
                 setnetent                       :1,     // - prepare networks file for use

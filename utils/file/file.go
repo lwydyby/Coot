@@ -4,6 +4,7 @@ import (
 	"Coot/error"
 	"fmt"
 	"os"
+	"io/ioutil"
 )
 
 func Output(result string, path string) {
@@ -21,4 +22,14 @@ func Output(result string, path string) {
 	} else {
 		fmt.Println(result)
 	}
+}
+
+func ReadFile(path string) string {
+	f, err := os.Open(path)
+	error.Check(err, "")
+
+	r, err := ioutil.ReadAll(f)
+	error.Check(err, "")
+
+	return string(r)
 }
