@@ -9,14 +9,15 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/satori/go.uuid"
 	"net/http"
-	"time"
 	"strings"
+	"time"
 )
 
 type alert struct {
-	isAlertMail       string
-	isAlertAlertOver  string
-	isAlertPushBullet string
+	isAlertMail         string
+	isAlertAlertOver    string
+	isAlertPushBullet   string
+	isAlertPushFangTang string
 }
 
 // Task List 页面
@@ -48,6 +49,7 @@ func HtmlDetail(c *gin.Context) {
 		"0",
 		"0",
 		"0",
+		"0",
 	}
 
 	if len(arr) > 0 {
@@ -65,21 +67,26 @@ func HtmlDetail(c *gin.Context) {
 			if v == "pushBullet" {
 				a.isAlertPushBullet = "1"
 			}
+
+			if v == "fangtang" {
+				a.isAlertPushFangTang = "1"
+			}
 		}
 	}
 
 	c.HTML(http.StatusOK, "taskDetail.html", gin.H{
-		"id":                id,
-		"taskName":          taskName,
-		"taskExplain":       taskExplain,
-		"taskTimeType":      taskTimeType,
-		"taskTime":          taskTime,
-		"scriptType":        scriptType,
-		"code":              code,
-		"isAlertMail":       a.isAlertMail,
-		"isAlertAlertOver":  a.isAlertAlertOver,
-		"isAlertPushBullet": a.isAlertPushBullet,
-		"alertRecMail":      alertRecMail,
+		"id":                  id,
+		"taskName":            taskName,
+		"taskExplain":         taskExplain,
+		"taskTimeType":        taskTimeType,
+		"taskTime":            taskTime,
+		"scriptType":          scriptType,
+		"code":                code,
+		"isAlertMail":         a.isAlertMail,
+		"isAlertAlertOver":    a.isAlertAlertOver,
+		"isAlertPushBullet":   a.isAlertPushBullet,
+		"isAlertPushFangTang": a.isAlertPushFangTang,
+		"alertRecMail":        alertRecMail,
 	})
 }
 

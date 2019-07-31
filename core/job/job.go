@@ -133,6 +133,23 @@ func notice(t *Task, result string) {
 					}
 				}
 			}
+			// 判断是否开启 方糖 通知
+			if v == "fangtang" {
+				sql := `select status,info from coot_setting where type="fangtang";`
+				isAlertStatus := dbUtil.Query(sql)
+
+				status := strconv.FormatInt(isAlertStatus[0]["status"].(int64), 10)
+
+				// 判断总开关是否开启
+				if status == "1" {
+					r := strings.Split(result, "&&")
+
+					// 判断脚本 code 是否 为 0
+					if r[0] == "0" {
+						send.SendPushFangTang(isAlertStatus, "Coot["+t.Name+"]提醒你", r[1])
+					}
+				}
+			}
 		}
 	}
 }

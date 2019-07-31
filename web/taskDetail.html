@@ -266,6 +266,23 @@
 
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-sm-3"><span class="text-danger">*</span> Pushfangtang：</label>
+                    <div class="col-sm-9">
+                        {{if eq .isAlertPushFangTang "1"}}
+                            <input type="checkbox" id="is_switch_pushFangTang" data-plugin="switchery"
+                                   data-color="#039cfd"
+                                   data-size="small"
+                                   class="js-check-change-pushFangTang" checked>
+                        {{else}}
+                            <input type="checkbox" id="is_switch_pushFangTang" data-plugin="switchery"
+                                   data-color="#039cfd"
+                                   data-size="small"
+                                   class="js-check-change-pushFangTang">
+                        {{end}}
+
+                    </div>
+                </div>
                 <hr>
                 <h4 class="header-title m-t-0 m-b-30 title">代码脚本</h4>
                 <div class="form-group row">
@@ -400,6 +417,16 @@
         }
     };
 
+    var changeCheckboxPushFangTang = document.querySelector('.js-check-change-pushFangTang');
+
+    changeCheckboxPushFangTang.onchange = function () {
+        if (changeCheckboxPushFangTang.checked) {
+            is_alert.push("fangtang");
+        } else {
+            is_alert.remove('fangtang');
+        }
+    };
+
     var taskTimeType = "{{.taskTimeType}}";
     var taskTime = "{{.taskTime}}";
     var scriptType = "{{.scriptType}}";
@@ -445,6 +472,10 @@
 
     if (changeCheckboxPushbullet.checked) {
         is_alert.push("pushBullet");
+    }
+
+    if (changeCheckboxPushFangTang.checked) {
+        is_alert.push("fangtang");
     }
 
     function switchTimeType(switchType) {

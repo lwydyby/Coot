@@ -42,5 +42,6 @@ func LoadUrl(r *gin.Engine) {
 	r.POST("/post/setting/login", login.Jump, setting.UpdateLoginInfo)
 	r.POST("/post/setting/alertOver", login.Jump, setting.UpdateAlertOverInfo)
 	r.POST("/post/setting/pushBullet", login.Jump, setting.UpdatePushBulletInfo)
+	r.POST("/post/setting/pushFangTang", login.Jump, setting.UpdatePushFangTangInfo)
 	r.POST("/post/setting/checkSetting", login.Jump, setting.UpdateStatusSetting)
 }

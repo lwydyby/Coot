@@ -31,6 +31,7 @@ func checkInfo(id string) bool {
 	typeStr := result[0]["type"].(string)
 	infoArr := strings.Split(info, "&&")
 	num := len(infoArr)
+
 	if num == 4 && typeStr == "mail" {
 		return true
 	}
@@ -41,6 +42,9 @@ func checkInfo(id string) bool {
 		return true
 	}
 	if num == 1 && typeStr == "pushBullet" {
+		return true
+	}
+	if num == 1 && typeStr == "fangtang" {
 		return true
 	}
 	return false
@@ -111,6 +115,21 @@ func UpdateAlertOverInfo(c *gin.Context) {
 
 /*更新pushBullet推送配置*/
 func UpdatePushBulletInfo(c *gin.Context) {
+	pushBulletToken := c.PostForm("pushBulletToken")
+	id := c.PostForm("id")
+	info := joinInfo(pushBulletToken)
+	sql := `
+		UPDATE  coot_setting 
+		set	info = ?,
+			status = ?,
+			update_time = ?
+		where id = ?;`
+	dbUtil.Update(sql, info, 0, time.Now().Format("2006-01-02 15:04"), id)
+	c.JSON(http.StatusOK, error.ErrSuccessNull())
+}
+
+/*更新pushFangTang推送配置*/
+func UpdatePushFangTangInfo(c *gin.Context) {
 	pushBulletToken := c.PostForm("pushBulletToken")
 	id := c.PostForm("id")
 	info := joinInfo(pushBulletToken)

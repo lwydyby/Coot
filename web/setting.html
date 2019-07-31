@@ -181,6 +181,30 @@
         </div>
     </div>
 </div>
+
+<!--Setting PushBullet Info Modal -->
+<div class="modal fade" id="settingFangTangModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">方糖server 配置</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for=""></label>
+                    <input type="text" class="form-control" id="pushFangTangToken" name="pushFangTangToken"
+                           placeholder="请填写创建的token">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" onclick="addPushFangTangPost()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 <input type="hidden" value="" id="settingId">
 {{template "footer" }}
 <script>
@@ -214,6 +238,9 @@
             case "pushBullet":
                 $('#settingPushBulletModal').modal('show')
                 break
+            case "fangtang":
+                $('#settingFangTangModal').modal('show')
+                break
             default:
                 break
         }
@@ -239,6 +266,8 @@
                     $("#alertReceiver").val(arr[1])
                 } else if (arr.length == 2 && result.data[0].type == "pushBullet") {
                     $("#pushBulletToken").val(arr[0])
+                }else if (arr.length == 2 && result.data[0].type == "fangtang") {
+                    $("#pushFangTangToken").val(arr[0])
                 }
             }
         }).fail(function (err) {
@@ -338,6 +367,29 @@
                 }
             }
             $('#settingPushBulletModal').modal('hide')
+            swal("success", "配置成功!", "success");
+        }).fail(function (err) {
+            console.log(err)
+            swal("添加失败", "请 Github 提交 Issues", 'error');
+        })
+    }
+
+    function addPushFangTangPost() {
+        var params = {
+            pushBulletToken: $("#pushFangTangToken").val(),
+            id: $("#settingId").val()
+        };
+        $.ajax({
+            type: "post",
+            url: "/post/setting/pushFangTang",
+            data: params,
+        }).success(function (result) {
+            if (result.code == 200 && checkProperty(params)) {
+                if (!$("#checkbox-" + params.id).prop("checked")) {
+                    $("#checkbox-" + params.id).click()
+                }
+            }
+            $('#settingFangTangModal').modal('hide')
             swal("success", "配置成功!", "success");
         }).fail(function (err) {
             console.log(err)
