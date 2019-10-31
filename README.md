@@ -10,10 +10,8 @@
 
 # 地址
 
-- 官网：https://coot.io
-- Github：https://github.com/yehuio/Coot
-- 下载地址：https://github.com/yehuio/Coot/releases
-- 插件库地址：https://github.com/yehuio/Coot-Plugs
+- Github：https://github.com/lwydyby/Coot
+
 
 # 部署说明
 
@@ -81,13 +79,4 @@ or
 - [ ] 平台统计
 - [ ] 手机版本优化
 
-# 关于
 
-- 出品：野虎团队
-- URL：https://yehu.io
-
-# 反馈群：
-
-加微信拉人，请备注 **野虎**
-
-![wechat](./images/wechat.jpg)
